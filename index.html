@@ -162,13 +162,13 @@
     #single-image-stage {
       position: relative;
       width: 100%;
-      max-width: 840px;
+      max-width: 960px;
       flex: 1;
       min-height: 0;
       background-color: #131B2E;
       border: 8px solid #00E5FF;
       border-radius: 30px;
-      padding: 16px;
+      padding: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -188,12 +188,13 @@
       transform: scale(1.015);
     }
 
+    /* 強制將所有圖片（包括較小解像度的香港區旗）等比例放大至填滿外框 */
     #single-official-img {
-      max-width: 100%;
-      max-height: 100%;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
       display: block;
-      border-radius: 8px;
+      border-radius: 12px;
     }
 
     #missing-img-notice {
@@ -285,7 +286,7 @@
       background-color: #131B2E;
       border: 9px solid var(--btn-accent, #FFFF00);
       border-radius: 32px;
-      padding: 20px;
+      padding: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -306,13 +307,14 @@
       .nav-arrow-btn { flex: 1; }
     }
 
+    /* 選擇題左右兩張大圖同樣自動等比例放大填滿卡片 */
     .img-choice-card img {
-      max-width: 100%;
-      max-height: 100%;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
       display: block;
       pointer-events: none;
-      border-radius: 8px;
+      border-radius: 10px;
     }
 
     .img-choice-card.reading-now {
@@ -651,7 +653,6 @@
   </div>
 
   <script>
-    // === 完全對應你已上傳至 GitHub 專案的 6 個 .png 圖檔 ===
     const PROJECT_IMAGES = {
       national_flag: './national_flag.png',
       hk_flag: './hk_flag.png',
@@ -769,7 +770,7 @@
       }
     ];
 
-    const STORAGE_KEY = 'flag_official_6pngs_v8';
+    const STORAGE_KEY = 'flag_official_6pngs_v9';
     let state = {
       settings: {
         theme: 'dark',
