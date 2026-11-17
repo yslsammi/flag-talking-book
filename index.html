@@ -651,13 +651,13 @@
   </div>
 
   <script>
-    // === 完全對應你已上傳至 GitHub 專案的 6 個官方標準圖檔 ===
+    // === 完全對應你已上傳至 GitHub 專案的 6 個 .png 圖檔 ===
     const PROJECT_IMAGES = {
       national_flag: './national_flag.png',
       hk_flag: './hk_flag.png',
-      national_emblem: './national_emblem.jpg',
+      national_emblem: './national_emblem.png',
       hk_emblem: './hk_emblem.png',
-      beijing_tiananmen: './beijing.jpg',
+      beijing_tiananmen: './beijing.png',
       anthem_etiquette_good: './anthem_good.png'
     };
 
@@ -681,7 +681,7 @@
       {
         id: 'national_emblem',
         label: '中國國徽',
-        expectedFile: 'national_emblem.jpg',
+        expectedFile: 'national_emblem.png',
         nameSpeech: '中國國徽。',
         featureSpeech: '圓形，有天安門同五粒星。',
         hasAnthemBtn: false
@@ -697,7 +697,7 @@
       {
         id: 'beijing_tiananmen',
         label: '首都：北京',
-        expectedFile: 'beijing.jpg',
+        expectedFile: 'beijing.png',
         nameSpeech: '國家的首都，北京。',
         featureSpeech: '北京有天安門廣場。',
         hasAnthemBtn: false
@@ -712,7 +712,6 @@
       }
     ];
 
-    // === 純圖片二選一題庫（全部直接採用已上傳的 6 張圖檔，無需額外圖片） ===
     const QUIZ_BANK = [
       {
         id: 'q1',
@@ -770,7 +769,7 @@
       }
     ];
 
-    const STORAGE_KEY = 'flag_official_6imgs_v7';
+    const STORAGE_KEY = 'flag_official_6pngs_v8';
     let state = {
       settings: {
         theme: 'dark',
