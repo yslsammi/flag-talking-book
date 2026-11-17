@@ -13,7 +13,6 @@
       --card-border: #FFFF00;
       --text-color: #FFFF00;
       --subtext-color: #FFFFFF;
-      --accent-color: #00FF66;
       --panel-bg: #16181F;
       --border-color: #444854;
     }
@@ -24,7 +23,6 @@
       --card-border: #002868;
       --text-color: #002868;
       --subtext-color: #111111;
-      --accent-color: #009933;
     }
 
     * {
@@ -50,7 +48,6 @@
       touch-action: manipulation;
     }
 
-    /* === 左上角教師設定按鈕 === */
     #teacher-trigger {
       position: fixed;
       top: 10px;
@@ -74,7 +71,6 @@
       pointer-events: none;
     }
 
-    /* === 頂部模式切換欄 === */
     #top-bar {
       position: fixed;
       top: 10px;
@@ -111,10 +107,6 @@
       box-shadow: 0 0 18px rgba(255, 255, 0, 0.55);
     }
 
-    .mode-tab-btn:active {
-      transform: scale(0.95);
-    }
-
     #replay-speech-btn {
       background: #00E5FF;
       color: #000000;
@@ -127,7 +119,6 @@
       white-space: nowrap;
     }
 
-    /* === 主舞台 === */
     #main-container {
       width: 100%;
       height: 100dvh;
@@ -140,7 +131,6 @@
       overflow: hidden;
     }
 
-    /* 簡短語音字幕橫幅 */
     #caption-banner {
       width: 100%;
       max-width: 1240px;
@@ -156,9 +146,7 @@
       flex-shrink: 0;
     }
 
-    /* =========================================
-       模式一：一次一張特大官方圖點讀視圖
-       ========================================= */
+    /* === 模式一：一次一張特大官方圖點讀 === */
     #single-book-view {
       width: 100%;
       max-width: 1240px;
@@ -200,16 +188,6 @@
       transform: scale(1.015);
     }
 
-    #single-image-inner {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      max-width: 100%;
-      max-height: 100%;
-      height: 100%;
-    }
-
     #single-official-img {
       max-width: 100%;
       max-height: 100%;
@@ -218,28 +196,20 @@
       border-radius: 8px;
     }
 
-    /* 低視能特徵重點聚光提示圈 */
-    #feature-spotlight {
-      position: absolute;
-      border: 7px dashed #FFFF00;
-      border-radius: 50%;
-      box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.42), 0 0 32px #FFFF00;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+    #missing-img-notice {
+      display: none;
+      text-align: center;
+      color: #FFFFFF;
+      font-size: 1.35rem;
+      font-weight: 800;
+      line-height: 1.6;
+      padding: 20px;
     }
 
-    #feature-spotlight.visible {
-      opacity: 1;
-      animation: pulseSpot 1.1s infinite alternate ease-in-out;
+    body.light-theme #missing-img-notice {
+      color: #111111;
     }
 
-    @keyframes pulseSpot {
-      from { transform: scale(0.95); }
-      to { transform: scale(1.06); }
-    }
-
-    /* 底部控制列 */
     #single-controls-bar {
       width: 100%;
       max-width: 1180px;
@@ -260,11 +230,6 @@
       font-weight: 900;
       cursor: pointer;
       white-space: nowrap;
-      transition: transform 0.12s ease;
-    }
-
-    .nav-arrow-btn:active {
-      transform: scale(0.94);
     }
 
     .step-action-group {
@@ -284,33 +249,14 @@
       font-weight: 900;
       cursor: pointer;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
-      transition: transform 0.12s ease;
       white-space: nowrap;
     }
 
-    .big-step-btn:active {
-      transform: scale(0.94);
-    }
+    #btn-speak-name { background: #FFFF00; color: #000000; }
+    #btn-speak-feature { background: #00FF66; color: #000000; }
+    #btn-play-anthem { background: #FF9F0A; color: #000000; display: none; }
 
-    #btn-speak-name {
-      background: #FFFF00;
-      color: #000000;
-    }
-
-    #btn-speak-feature {
-      background: #00FF66;
-      color: #000000;
-    }
-
-    #btn-play-anthem {
-      background: #FF9F0A;
-      color: #000000;
-      display: none;
-    }
-
-    /* =========================================
-       模式二：純圖片二選一選擇題（無文字選項）
-       ========================================= */
+    /* === 模式二：純圖片二選一選擇題 === */
     #quiz-view {
       width: 100%;
       max-width: 1260px;
@@ -353,24 +299,11 @@
     }
 
     @media (max-width: 760px) {
-      #image-choices-row {
-        flex-direction: column;
-        gap: 24px;
-      }
-      .img-choice-card {
-        max-width: 100%;
-      }
-      #single-controls-bar {
-        flex-wrap: wrap;
-      }
-      .step-action-group {
-        order: -1;
-        width: 100%;
-        flex-basis: 100%;
-      }
-      .nav-arrow-btn {
-        flex: 1;
-      }
+      #image-choices-row { flex-direction: column; gap: 24px; }
+      .img-choice-card { max-width: 100%; }
+      #single-controls-bar { flex-wrap: wrap; }
+      .step-action-group { order: -1; width: 100%; flex-basis: 100%; }
+      .nav-arrow-btn { flex: 1; }
     }
 
     .img-choice-card img {
@@ -382,10 +315,6 @@
       border-radius: 8px;
     }
 
-    .img-choice-card:active {
-      transform: scale(0.96);
-    }
-
     .img-choice-card.reading-now {
       border-color: #FFFFFF !important;
       background-color: #2B3348 !important;
@@ -393,19 +322,11 @@
       box-shadow: 0 0 48px rgba(255, 255, 0, 0.95);
     }
 
-    body.light-theme .img-choice-card.reading-now {
-      background-color: #FEF9C3 !important;
-    }
-
     .img-choice-card.correct-selected {
       border-color: #00FF66 !important;
       background-color: #163826 !important;
       transform: scale(1.05);
       box-shadow: 0 0 54px rgba(0, 255, 102, 0.98);
-    }
-
-    body.light-theme .img-choice-card.correct-selected {
-      background-color: #DCFCE7 !important;
     }
 
     .img-choice-card.faded-out {
@@ -425,7 +346,6 @@
       75% { transform: translateX(-6px); }
     }
 
-    /* 過關後下一題特大按鈕 */
     #next-question-bar {
       position: fixed;
       bottom: 20px;
@@ -447,7 +367,7 @@
       box-shadow: 0 0 34px rgba(0, 255, 102, 0.95);
     }
 
-    /* === 教師設定、自訂更換圖片與修改讀白面板 === */
+    /* === 教師設定面板 === */
     #teacher-panel {
       position: fixed;
       inset: 0;
@@ -472,9 +392,6 @@
     }
 
     .panel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       border-bottom: 1px solid var(--border-color);
       padding-bottom: 12px;
       margin-bottom: 16px;
@@ -486,10 +403,7 @@
       color: #FFFF00;
     }
 
-    .setting-group {
-      margin-bottom: 20px;
-    }
-
+    .setting-group { margin-bottom: 20px; }
     .setting-group > label {
       display: block;
       font-weight: 800;
@@ -498,12 +412,7 @@
       color: #EFEFEF;
     }
 
-    .btn-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
+    .btn-group { display: flex; flex-wrap: wrap; gap: 10px; }
     .opt-btn {
       background: #2A2E3B;
       color: #FFFFFF;
@@ -514,7 +423,6 @@
       font-weight: 700;
       cursor: pointer;
     }
-
     .opt-btn.active {
       background: #FFFF00;
       color: #000000;
@@ -619,9 +527,7 @@
     }
 
     @media (max-width: 640px) {
-      .quiz-toggle-grid {
-        grid-template-columns: 1fr;
-      }
+      .quiz-toggle-grid { grid-template-columns: 1fr; }
     }
 
     .quiz-toggle-btn {
@@ -665,14 +571,12 @@
 </head>
 <body>
 
-  <!-- 左上角教師設定按鈕 -->
   <button type="button" id="teacher-trigger" title="教師設定與更換圖片">
     <svg viewBox="0 0 24 24">
       <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
     </svg>
   </button>
 
-  <!-- 頂部模式切換欄 -->
   <div id="top-bar">
     <div class="mode-tabs">
       <button type="button" class="mode-tab-btn active" id="tab-book-btn">📖 點讀大圖</button>
@@ -681,17 +585,13 @@
     <button type="button" id="replay-speech-btn">🔊 再讀一次</button>
   </div>
 
-  <!-- 主舞台 -->
   <div id="main-container">
     <div id="caption-banner">👆 先撳「🔊 講名稱」，再撳「🔍 講特徵」！</div>
 
-    <!-- 模式一：一次放大一張大圖點讀 -->
     <div id="single-book-view">
       <div id="single-image-stage" title="撳大圖講名稱">
-        <div id="single-image-inner">
-          <img id="single-official-img" src="" alt="官方標準圖" />
-          <div id="feature-spotlight"></div>
-        </div>
+        <img id="single-official-img" src="" alt="官方標準圖" />
+        <div id="missing-img-notice"></div>
       </div>
 
       <div id="single-controls-bar">
@@ -705,18 +605,15 @@
       </div>
     </div>
 
-    <!-- 模式二：純圖片二選一選擇題（無文字選項） -->
     <div id="quiz-view">
       <div id="image-choices-row"></div>
     </div>
   </div>
 
-  <!-- 答對後下一題特大按鈕 -->
   <div id="next-question-bar">
     <button type="button" id="next-question-btn">➡️ 下一題</button>
   </div>
 
-  <!-- 教師設定面板 -->
   <div id="teacher-panel">
     <div class="panel-card">
       <div class="panel-header">
@@ -740,7 +637,7 @@
       </div>
 
       <div class="setting-group">
-        <label>3. 6 張大圖卡片與短句讀白（已內置官方標準矢量圖，永不破圖；亦可隨時從相簿更換）</label>
+        <label>3. 6 張官方圖檔與短句讀白設定</label>
         <div id="custom-cards-manager"></div>
       </div>
 
@@ -754,268 +651,68 @@
   </div>
 
   <script>
-    // === 內置離線官方標準矢量圖（嚴格遵照《中華人民共和國國旗法》、《國徽法》及《香港特別行政區區旗及區徽條例》官方幾何製圖比例與標準色彩，永不受外部網站阻擋而破圖） ===
-    const OFFICIAL_DEFAULT_IMAGES = {
-      // 1. 中華人民共和國國旗（官方標準 3:2 比例、國旗紅 #DE2910、國旗黃 #FFDE00、大星及四小星精確旋轉朝向大星中心）
-      national_flag: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
-        <svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
-          <rect width="900" height="600" fill="#DE2910"/>
-          <g fill="#FFDE00">
-            <!-- 大五角星 (中心 150, 150，半徑 90) -->
-            <polygon transform="translate(150,150) scale(90)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
-            <!-- 第一顆小五角星 (300, 60，半徑 30，旋轉 23.036°) -->
-            <polygon transform="translate(300,60) rotate(23.036) scale(30)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
-            <!-- 第二顆小五角星 (360, 120，半徑 30，旋轉 45.87°) -->
-            <polygon transform="translate(360,120) rotate(45.87) scale(30)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
-            <!-- 第三顆小五角星 (360, 210，半徑 30，旋轉 69.945°) -->
-            <polygon transform="translate(360,210) rotate(69.945) scale(30)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
-            <!-- 第四顆小五角星 (300, 270，半徑 30，旋轉 20.66°) -->
-            <polygon transform="translate(300,270) rotate(20.66) scale(30)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
-          </g>
-        </svg>
-      `),
-
-      // 2. 香港特別行政區區旗（官方標準 3:2 比例、區旗紅 #DE2910、動態五瓣白色洋紫荊花及紅色五角星花蕊與中脈）
-      hk_flag: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
-        <svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
-          <rect width="900" height="600" fill="#DE2910"/>
-          <g id="hk-flower" transform="translate(450, 300)">
-            <defs>
-              <g id="hk-petal">
-                <path d="M 0,0 C -44,-34 -56,-118 -8,-168 C 18,-194 56,-196 76,-172 C 42,-154 34,-120 52,-94 C 70,-68 58,-22 0,0 Z" fill="#FFFFFF"/>
-                <path d="M 4,-14 C 14,-56 18,-96 10,-124" stroke="#DE2910" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-                <polygon transform="translate(14,-114) rotate(16) scale(13)" fill="#DE2910" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
-              </g>
-            </defs>
-            <use href="#hk-petal" transform="rotate(0)"/>
-            <use href="#hk-petal" transform="rotate(72)"/>
-            <use href="#hk-petal" transform="rotate(144)"/>
-            <use href="#hk-petal" transform="rotate(216)"/>
-            <use href="#hk-petal" transform="rotate(288)"/>
-          </g>
-        </svg>
-      `),
-
-      // 3. 中華人民共和國國徽（官方標準金色麥穗稻穗環抱、天安門城樓、上方五顆金星、底部齒輪與紅綬帶）
-      national_emblem: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
-        <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-          <!-- 外圈金黃麥穗稻穗 -->
-          <circle cx="300" cy="290" r="245" fill="#DE2910" stroke="#FFDE00" stroke-width="26"/>
-          <circle cx="300" cy="290" r="224" fill="none" stroke="#DE2910" stroke-width="5"/>
-          <circle cx="300" cy="290" r="204" fill="#DE2910" stroke="#FFDE00" stroke-width="10"/>
-
-          <!-- 麥穗顆粒紋理 -->
-          <g fill="#FFDE00" stroke="#B45309" stroke-width="1.5">
-            <ellipse cx="78" cy="240" rx="10" ry="22" transform="rotate(-12 78 240)"/>
-            <ellipse cx="74" cy="290" rx="10" ry="22"/>
-            <ellipse cx="82" cy="340" rx="10" ry="22" transform="rotate(14 82 340)"/>
-            <ellipse cx="102" cy="390" rx="10" ry="22" transform="rotate(28 102 390)"/>
-            <ellipse cx="136" cy="435" rx="10" ry="22" transform="rotate(42 136 435)"/>
-            <ellipse cx="182" cy="472" rx="10" ry="22" transform="rotate(56 182 472)"/>
-
-            <ellipse cx="522" cy="240" rx="10" ry="22" transform="rotate(12 522 240)"/>
-            <ellipse cx="526" cy="290" rx="10" ry="22"/>
-            <ellipse cx="518" cy="340" rx="10" ry="22" transform="rotate(-14 518 340)"/>
-            <ellipse cx="498" cy="390" rx="10" ry="22" transform="rotate(-28 498 390)"/>
-            <ellipse cx="464" cy="435" rx="10" ry="22" transform="rotate(-42 464 435)"/>
-            <ellipse cx="418" cy="472" rx="10" ry="22" transform="rotate(-56 418 472)"/>
-          </g>
-
-          <!-- 國徽上方五顆金星（中大星＋左右各兩小星呈弧形） -->
-          <g fill="#FFDE00">
-            <polygon transform="translate(300,142) scale(34)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
-            <polygon transform="translate(232,162) rotate(-25) scale(17)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
-            <polygon transform="translate(184,205) rotate(-45) scale(17)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
-            <polygon transform="translate(368,162) rotate(25) scale(17)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
-            <polygon transform="translate(416,205) rotate(45) scale(17)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
-          </g>
-
-          <!-- 天安門城樓（金色重簷宮殿建築） -->
-          <g fill="#FFDE00" stroke="#B45309" stroke-width="2">
-            <!-- 上層屋頂 -->
-            <path d="M 205,248 Q 300,205 395,248 L 385,256 L 215,256 Z"/>
-            <!-- 上層城樓身 -->
-            <rect x="225" y="256" width="150" height="28"/>
-            <!-- 下層屋簷 -->
-            <path d="M 168,298 Q 300,276 432,298 L 422,308 L 178,308 Z"/>
-            <!-- 城台主體 -->
-            <rect x="172" y="308" width="256" height="82" rx="4"/>
-          </g>
-          <!-- 五個門洞（國徽紅底色） -->
-          <g fill="#DE2910">
-            <path d="M 284,390 L 284,348 A 16,16 0 0,1 316,348 L 316,390 Z"/>
-            <path d="M 236,390 L 236,356 A 12,12 0 0,1 260,356 L 260,390 Z"/>
-            <path d="M 340,390 L 340,356 A 12,12 0 0,1 364,356 L 364,390 Z"/>
-            <path d="M 194,390 L 194,360 A 11,11 0 0,1 216,360 L 216,390 Z"/>
-            <path d="M 384,390 L 384,360 A 11,11 0 0,1 406,360 L 406,390 Z"/>
-          </g>
-
-          <!-- 底部金色齒輪與紅綬帶 -->
-          <circle cx="300" cy="495" r="46" fill="#FFDE00" stroke="#B45309" stroke-width="4"/>
-          <circle cx="300" cy="495" r="22" fill="#DE2910"/>
-          <path d="M 185,495 Q 245,525 300,520 Q 355,525 415,495 L 405,532 Q 350,555 300,548 Q 250,555 195,532 Z" fill="#DE2910" stroke="#FFDE00" stroke-width="4"/>
-        </svg>
-      `),
-
-      // 4. 香港特別行政區區徽（官方標準圓形白邊紅底、動態五瓣白色洋紫荊花及紅色五角星花蕊）
-      hk_emblem: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
-        <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-          <!-- 外圈白色環帶與紅色細邊 -->
-          <circle cx="300" cy="300" r="272" fill="#FFFFFF" stroke="#DE2910" stroke-width="12"/>
-          <!-- 內圈區旗紅圓盤 -->
-          <circle cx="300" cy="300" r="212" fill="#DE2910"/>
-          <!-- 中央動態五瓣白色洋紫荊花 -->
-          <g transform="translate(300, 300) scale(1.06)">
-            <defs>
-              <g id="emblem-petal">
-                <path d="M 0,0 C -44,-34 -56,-118 -8,-168 C 18,-194 56,-196 76,-172 C 42,-154 34,-120 52,-94 C 70,-68 58,-22 0,0 Z" fill="#FFFFFF"/>
-                <path d="M 4,-14 C 14,-56 18,-96 10,-124" stroke="#DE2910" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-                <polygon transform="translate(14,-114) rotate(16) scale(13)" fill="#DE2910" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
-              </g>
-            </defs>
-            <use href="#emblem-petal" transform="rotate(0)"/>
-            <use href="#emblem-petal" transform="rotate(72)"/>
-            <use href="#emblem-petal" transform="rotate(144)"/>
-            <use href="#emblem-petal" transform="rotate(216)"/>
-            <use href="#emblem-petal" transform="rotate(288)"/>
-          </g>
-          <!-- 環形小星裝飾點綴白環 -->
-          <g fill="#DE2910">
-            <polygon transform="translate(300,56) scale(11)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
-            <polygon transform="translate(300,544) scale(11)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
-          </g>
-        </svg>
-      `),
-
-      // 5. 國家的首都：北京（天安門廣場）
-      beijing_tiananmen: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
-        <svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg">
-          <rect width="800" height="310" fill="#38BDF8"/>
-          <rect y="310" width="800" height="170" fill="#CBD5E1"/>
-          <line x1="0" y1="310" x2="800" y2="310" stroke="#000000" stroke-width="5"/>
-          <polygon points="180,145 400,72 620,145" fill="#FACC15" stroke="#000000" stroke-width="5"/>
-          <rect x="215" y="145" width="370" height="34" fill="#DC2626" stroke="#000000" stroke-width="5"/>
-          <polygon points="150,192 650,192 625,172 175,172" fill="#FACC15" stroke="#000000" stroke-width="5"/>
-          <rect x="145" y="192" width="510" height="118" fill="#DC2626" stroke="#000000" stroke-width="5"/>
-          <path d="M376,310 L376,262 A24,24 0 0,1 424,262 L424,310 Z" fill="#1E293B" stroke="#FACC15" stroke-width="4"/>
-          <path d="M296,310 L296,268 A20,20 0 0,1 336,268 L336,310 Z" fill="#1E293B" stroke="#FACC15" stroke-width="4"/>
-          <path d="M464,310 L464,268 A20,20 0 0,1 504,268 L504,310 Z" fill="#1E293B" stroke="#FACC15" stroke-width="4"/>
-          <path d="M220,310 L220,272 A18,18 0 0,1 256,272 L256,310 Z" fill="#1E293B" stroke="#FACC15" stroke-width="4"/>
-          <path d="M544,310 L544,272 A18,18 0 0,1 580,272 L580,310 Z" fill="#1E293B" stroke="#FACC15" stroke-width="4"/>
-          <rect x="382" y="202" width="36" height="44" rx="4" fill="#FDE68A" stroke="#000000" stroke-width="3"/>
-          <rect x="130" y="310" width="540" height="18" fill="#FFFFFF" stroke="#000000" stroke-width="4"/>
-          <rect x="108" y="110" width="8" height="260" fill="#F8FAFC" stroke="#000000" stroke-width="3"/>
-          <rect x="116" y="114" width="76" height="48" fill="#DE2910" stroke="#000000" stroke-width="3"/>
-          <polygon points="130,124 133,132 141,132 135,137 137,145 130,140 123,145 125,137 119,132 127,132" fill="#FFDE00"/>
-        </svg>
-      `),
-
-      // 6. 奏唱國歌的禮儀和態度：肅立、手放兩邊、面向國旗、唱國歌
-      anthem_etiquette_good: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
-        <svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg">
-          <rect width="800" height="345" fill="#0284C7"/>
-          <rect y="345" width="800" height="135" fill="#22C55E"/>
-          <line x1="0" y1="345" x2="800" y2="345" stroke="#000000" stroke-width="6"/>
-          <rect x="175" y="45" width="12" height="305" fill="#F1F5F9" stroke="#000000" stroke-width="4"/>
-          <circle cx="181" cy="38" r="11" fill="#FACC15" stroke="#000000" stroke-width="3"/>
-          <rect x="187" y="52" width="150" height="98" fill="#DE2910" stroke="#000000" stroke-width="4"/>
-          <polygon points="214,68 219,82 234,82 222,90 226,104 214,95 202,104 206,90 194,82 209,82" fill="#FFDE00"/>
-          <circle cx="248" cy="65" r="4" fill="#FFDE00"/><circle cx="258" cy="76" r="4" fill="#FFDE00"/>
-          <circle cx="258" cy="91" r="4" fill="#FFDE00"/><circle cx="248" cy="102" r="4" fill="#FFDE00"/>
-          <g transform="translate(520, 175)">
-            <rect x="-24" y="110" width="20" height="65" rx="8" fill="#1E293B" stroke="#000000" stroke-width="4"/>
-            <rect x="4" y="110" width="20" height="65" rx="8" fill="#1E293B" stroke="#000000" stroke-width="4"/>
-            <rect x="-36" y="42" width="72" height="76" rx="18" fill="#FACC15" stroke="#000000" stroke-width="5"/>
-            <line x1="-44" y1="50" x2="-44" y2="115" stroke="#FDE68A" stroke-width="16" stroke-linecap="round"/>
-            <line x1="-44" y1="50" x2="-44" y2="115" stroke="#000000" stroke-width="4" stroke-linecap="round"/>
-            <line x1="44" y1="50" x2="44" y2="115" stroke="#FDE68A" stroke-width="16" stroke-linecap="round"/>
-            <line x1="44" y1="50" x2="44" y2="115" stroke="#000000" stroke-width="4" stroke-linecap="round"/>
-            <circle cx="0" cy="0" r="46" fill="#FDE68A" stroke="#000000" stroke-width="5"/>
-            <path d="M-46 -6 Q-40 -50 0 -50 Q40 -50 46 -6 Z" fill="#1E293B" stroke="#000000" stroke-width="4"/>
-            <circle cx="-22" cy="0" r="6" fill="#000000"/>
-            <circle cx="2" cy="0" r="6" fill="#000000"/>
-            <ellipse cx="-10" cy="20" rx="9" ry="11" fill="#EF4444" stroke="#000000" stroke-width="4"/>
-          </g>
-          <circle cx="415" cy="145" r="10" fill="#FFFF00" stroke="#000000" stroke-width="3"/>
-          <path d="M423 145 L423 105 L445 98" stroke="#FFFF00" stroke-width="6" stroke-linecap="round" fill="none"/>
-        </svg>
-      `),
-
-      // 錯誤行為對比圖（僅供二選一練習對比）
-      anthem_etiquette_bad: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
-        <svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg">
-          <rect width="800" height="345" fill="#94A3B8"/>
-          <rect y="345" width="800" height="135" fill="#64748B"/>
-          <line x1="0" y1="345" x2="800" y2="345" stroke="#000000" stroke-width="6"/>
-          <rect x="135" y="45" width="12" height="305" fill="#F1F5F9" stroke="#000000" stroke-width="4"/>
-          <rect x="147" y="52" width="130" height="86" fill="#DE2910" stroke="#000000" stroke-width="4"/>
-          <g transform="translate(530, 185) rotate(14)">
-            <rect x="-34" y="40" width="68" height="72" rx="18" fill="#F97316" stroke="#000000" stroke-width="5"/>
-            <line x1="-36" y1="50" x2="-78" y2="15" stroke="#FDE68A" stroke-width="16" stroke-linecap="round"/>
-            <line x1="36" y1="50" x2="78" y2="15" stroke="#FDE68A" stroke-width="16" stroke-linecap="round"/>
-            <circle cx="0" cy="0" r="44" fill="#FDE68A" stroke="#000000" stroke-width="5"/>
-            <path d="M-44 -6 Q-38 -48 0 -48 Q38 -48 44 -6 Z" fill="#1E293B"/>
-            <circle cx="10" cy="0" r="6" fill="#000000"/>
-            <circle cx="28" cy="0" r="6" fill="#000000"/>
-            <path d="M8 18 Q18 30 28 18" stroke="#000000" stroke-width="4" fill="none"/>
-          </g>
-        </svg>
-      `)
+    // === 完全對應你已上傳至 GitHub 專案的 6 個官方標準圖檔 ===
+    const PROJECT_IMAGES = {
+      national_flag: './national_flag.png',
+      hk_flag: './hk_flag.png',
+      national_emblem: './national_emblem.jpg',
+      hk_emblem: './hk_emblem.png',
+      beijing_tiananmen: './beijing.jpg',
+      anthem_etiquette_good: './anthem_good.png'
     };
 
-    // === 6 張大圖卡片設定（短句讀白＋重點聚光位置） ===
     const DEFAULT_ITEMS = [
       {
         id: 'national_flag',
         label: '中國國旗',
+        expectedFile: 'national_flag.png',
         nameSpeech: '中國國旗。',
         featureSpeech: '紅色底，左上角有五粒黃星。',
-        spotlight: { top: '6%', left: '4%', width: '44%', height: '52%' },
         hasAnthemBtn: false
       },
       {
         id: 'hk_flag',
         label: '香港區旗',
+        expectedFile: 'hk_flag.png',
         nameSpeech: '香港區旗。',
         featureSpeech: '紅色底，中間有白色紫荊花。',
-        spotlight: { top: '18%', left: '28%', width: '44%', height: '64%' },
         hasAnthemBtn: false
       },
       {
         id: 'national_emblem',
         label: '中國國徽',
+        expectedFile: 'national_emblem.jpg',
         nameSpeech: '中國國徽。',
         featureSpeech: '圓形，有天安門同五粒星。',
-        spotlight: { top: '5%', left: '5%', width: '90%', height: '90%' },
         hasAnthemBtn: false
       },
       {
         id: 'hk_emblem',
         label: '香港區徽',
+        expectedFile: 'hk_emblem.png',
         nameSpeech: '香港區徽。',
         featureSpeech: '圓形，中間有白色紫荊花。',
-        spotlight: { top: '18%', left: '18%', width: '64%', height: '64%' },
         hasAnthemBtn: false
       },
       {
         id: 'beijing_tiananmen',
         label: '首都：北京',
+        expectedFile: 'beijing.jpg',
         nameSpeech: '國家的首都，北京。',
         featureSpeech: '北京有天安門廣場。',
-        spotlight: { top: '14%', left: '18%', width: '64%', height: '56%' },
         hasAnthemBtn: false
       },
       {
         id: 'anthem_etiquette_good',
         label: '奏唱國歌禮儀',
+        expectedFile: 'anthem_good.png',
         nameSpeech: '奏唱國歌的禮儀。',
         featureSpeech: '肅立、手放兩邊、面向國旗、唱國歌。',
-        spotlight: { top: '24%', left: '52%', width: '28%', height: '66%' },
         hasAnthemBtn: true
       }
     ];
 
-    // === 純圖片二選一題庫（全圖片選項，零文字干擾） ===
+    // === 純圖片二選一題庫（全部直接採用已上傳的 6 張圖檔，無需額外圖片） ===
     const QUIZ_BANK = [
       {
         id: 'q1',
@@ -1064,18 +761,16 @@
       },
       {
         id: 'q6',
-        title: '題 6：奏唱國歌時，邊個姿勢先至正確？',
-        question: '奏唱國歌時，邊個姿勢正確？',
+        title: '題 6：邊幅係奏唱國歌的禮儀？',
+        question: '邊幅係奏唱國歌的禮儀？',
         correctId: 'anthem_etiquette_good',
-        wrongId: 'anthem_etiquette_bad',
-        correctSpokenOverride: '肅立、手放兩邊、面向國旗。',
-        wrongSpokenOverride: '背向國旗周圍走。',
+        wrongId: 'beijing_tiananmen',
         praise: '答啱啦！肅立、手放兩邊、面向國旗唱國歌。',
-        retry: '唱國歌要手放兩邊面向國旗，再揀！'
+        retry: '再睇下，邊幅圖有小朋友企定面向國旗唱歌？'
       }
     ];
 
-    const STORAGE_KEY = 'flag_beijing_etiquette_v5';
+    const STORAGE_KEY = 'flag_official_6imgs_v7';
     let state = {
       settings: {
         theme: 'dark',
@@ -1103,7 +798,7 @@
     }
 
     function getItemImageSrc(id) {
-      return state.customImages[id] || OFFICIAL_DEFAULT_IMAGES[id];
+      return state.customImages[id] || PROJECT_IMAGES[id];
     }
 
     function getItemSpeech(id, type) {
@@ -1128,14 +823,13 @@
     const singleBookView = document.getElementById('single-book-view');
     const singleImageStage = document.getElementById('single-image-stage');
     const singleOfficialImg = document.getElementById('single-official-img');
-    const featureSpotlight = document.getElementById('feature-spotlight');
+    const missingImgNotice = document.getElementById('missing-img-notice');
     const btnPlayAnthem = document.getElementById('btn-play-anthem');
     const quizView = document.getElementById('quiz-view');
     const imageChoicesRow = document.getElementById('image-choices-row');
     const nextQuestionBar = document.getElementById('next-question-bar');
     const nextQuestionBtn = document.getElementById('next-question-btn');
 
-    // === 音效與《義勇軍進行曲》前奏 ===
     let audioCtx = null;
 
     function initAudio() {
@@ -1150,10 +844,7 @@
 
     function playNationalAnthemIntro(onFinish) {
       initAudio();
-      if (!audioCtx) {
-        if (onFinish) onFinish();
-        return;
-      }
+      if (!audioCtx) { if (onFinish) onFinish(); return; }
       try {
         const notes = [
           { freq: 392.00, time: 0.00, dur: 0.22 },
@@ -1170,15 +861,12 @@
           const gain = audioCtx.createGain();
           osc.type = 'sawtooth';
           osc.frequency.setValueAtTime(n.freq, start);
-
           const filter = audioCtx.createBiquadFilter();
           filter.type = 'lowpass';
           filter.frequency.setValueAtTime(1600, start);
-
           gain.gain.setValueAtTime(0.01, start);
           gain.gain.linearRampToValueAtTime(0.18, start + 0.03);
           gain.gain.exponentialRampToValueAtTime(0.001, start + n.dur);
-
           osc.connect(filter);
           filter.connect(gain);
           gain.connect(audioCtx.destination);
@@ -1186,9 +874,7 @@
           osc.stop(start + n.dur + 0.02);
         });
         if (onFinish) setTimeout(onFinish, 2650);
-      } catch (e) {
-        if (onFinish) onFinish();
-      }
+      } catch (e) { if (onFinish) onFinish(); }
     }
 
     function playSuccessChime() {
@@ -1229,7 +915,6 @@
       } catch (e) {}
     }
 
-    // === 廣東話語音引擎 ===
     let cantoneseVoice = null;
     let speechTimer = null;
     let fallbackCallbackTimer = null;
@@ -1273,9 +958,7 @@
       };
 
       const estimatedMs = Math.max(1300, String(text).length * 240 + 600);
-      if (onComplete) {
-        fallbackCallbackTimer = setTimeout(fireOnce, estimatedMs);
-      }
+      if (onComplete) fallbackCallbackTimer = setTimeout(fireOnce, estimatedMs);
 
       speechTimer = setTimeout(() => {
         try {
@@ -1294,40 +977,29 @@
       }, 50);
     }
 
-    // === 模式一：渲染一次一張特大圖 ===
     function renderSingleBookCard(autoSpeakName) {
       const item = DEFAULT_ITEMS[runtime.bookIndex];
-      singleOfficialImg.src = getItemImageSrc(item.id);
-      singleOfficialImg.alt = item.label;
-      featureSpotlight.classList.remove('visible');
       singleImageStage.classList.remove('speaking-glow');
-
       btnPlayAnthem.style.display = item.hasAnthemBtn ? 'inline-block' : 'none';
 
-      if (!state.customImages[item.id]) {
-        featureSpotlight.style.top = item.spotlight.top;
-        featureSpotlight.style.left = item.spotlight.left;
-        featureSpotlight.style.width = item.spotlight.width;
-        featureSpotlight.style.height = item.spotlight.height;
-      } else {
-        featureSpotlight.style.top = '10%';
-        featureSpotlight.style.left = '10%';
-        featureSpotlight.style.width = '80%';
-        featureSpotlight.style.height = '80%';
-      }
+      singleOfficialImg.style.display = 'block';
+      missingImgNotice.style.display = 'none';
+      singleOfficialImg.onerror = () => {
+        singleOfficialImg.style.display = 'none';
+        missingImgNotice.style.display = 'block';
+        missingImgNotice.innerHTML = `📁 找不到【${item.label}】圖檔（${item.expectedFile}）<br><span style="font-size:1rem;color:#00E5FF;">請確認該圖片已上傳至 GitHub 專案主目錄，或按左上角 ⚙️ 從相簿選取</span>`;
+      };
+      singleOfficialImg.src = getItemImageSrc(item.id);
+      singleOfficialImg.alt = item.label;
 
       captionBanner.textContent = `📖 第 ${runtime.bookIndex + 1} / ${DEFAULT_ITEMS.length} 張：請先撳「🔊 講名稱」`;
-
-      if (autoSpeakName) {
-        triggerSpeakName();
-      }
+      if (autoSpeakName) triggerSpeakName();
     }
 
     function triggerSpeakName() {
       initAudio();
       const item = DEFAULT_ITEMS[runtime.bookIndex];
       const text = getItemSpeech(item.id, 'name');
-      featureSpotlight.classList.remove('visible');
       singleImageStage.classList.add('speaking-glow');
       captionBanner.textContent = `🔊 ${text}`;
       speakCantonese(text, () => {
@@ -1340,11 +1012,9 @@
       const item = DEFAULT_ITEMS[runtime.bookIndex];
       const text = getItemSpeech(item.id, 'feature');
       singleImageStage.classList.add('speaking-glow');
-      featureSpotlight.classList.add('visible');
       captionBanner.textContent = `🔍 ${text}`;
       speakCantonese(text, () => {
         singleImageStage.classList.remove('speaking-glow');
-        featureSpotlight.classList.remove('visible');
       });
     }
 
@@ -1374,7 +1044,6 @@
       renderSingleBookCard(true);
     });
 
-    // === 模式二：純圖片二選一選擇題 ===
     function getActiveQuizList() {
       const list = QUIZ_BANK.filter(q => state.enabledQuizzes.includes(q.id));
       return list.length > 0 ? list : QUIZ_BANK;
@@ -1390,9 +1059,7 @@
       runtime.isEvaluatingChoice = false;
 
       const activeList = getActiveQuizList();
-      if (runtime.quizIndex >= activeList.length) {
-        runtime.quizIndex = 0;
-      }
+      if (runtime.quizIndex >= activeList.length) runtime.quizIndex = 0;
 
       const q = activeList[runtime.quizIndex];
       captionBanner.textContent = `❓ 第 ${runtime.quizIndex + 1} / ${activeList.length} 題：${q.question}`;
@@ -1401,12 +1068,12 @@
         {
           imgId: q.correctId,
           isCorrect: true,
-          spokenText: q.correctSpokenOverride || getItemSpeech(q.correctId, 'name')
+          spokenText: getItemSpeech(q.correctId, 'name')
         },
         {
           imgId: q.wrongId,
           isCorrect: false,
-          spokenText: q.wrongSpokenOverride || getItemSpeech(q.wrongId, 'name')
+          spokenText: getItemSpeech(q.wrongId, 'name')
         }
       ].sort(() => Math.random() - 0.5);
 
@@ -1498,7 +1165,6 @@
       }
     }
 
-    // === 切換「點讀大圖」與「二選一練習」 ===
     const tabBookBtn = document.getElementById('tab-book-btn');
     const tabQuizBtn = document.getElementById('tab-quiz-btn');
 
@@ -1530,7 +1196,6 @@
       speakCantonese(runtime.lastSpokenText);
     });
 
-    // === 教師設定面板 ===
     const teacherPanel = document.getElementById('teacher-panel');
     const customCardsManager = document.getElementById('custom-cards-manager');
     const quizBankToggles = document.getElementById('quiz-bank-toggles');
@@ -1546,6 +1211,7 @@
             <img id="preview_${item.id}" src="${getItemImageSrc(item.id)}" alt="${item.label}" />
           </div>
           <div class="editor-fields">
+            <div style="font-weight:900;color:#FFFF00;font-size:0.95rem;">${item.label}（GitHub 檔名：${item.expectedFile}）</div>
             <div class="editor-row">
               <span>講名稱：</span>
               <input type="text" class="editor-input" data-id="${item.id}" data-field="nameSpeech" value="${getItemSpeech(item.id, 'name')}" />
@@ -1556,9 +1222,9 @@
             </div>
           </div>
           <div class="editor-img-btns">
-            <label class="upload-label-btn" for="${inputId}">📁 更換圖片</label>
+            <label class="upload-label-btn" for="${inputId}">📁 本機選圖</label>
             <input type="file" id="${inputId}" accept="image/*" style="display:none;" />
-            <button type="button" class="restore-default-btn" data-id="${item.id}">還原預設圖</button>
+            <button type="button" class="restore-default-btn" data-id="${item.id}">用專案圖檔</button>
           </div>
         `;
 
@@ -1590,7 +1256,7 @@
         box.querySelector('.restore-default-btn').addEventListener('click', () => {
           delete state.customImages[item.id];
           saveState();
-          document.getElementById(`preview_${item.id}`).src = OFFICIAL_DEFAULT_IMAGES[item.id];
+          document.getElementById(`preview_${item.id}`).src = PROJECT_IMAGES[item.id];
           if (runtime.mode === 'book') renderSingleBookCard(false);
           if (runtime.mode === 'quiz') loadQuizQuestion();
         });
@@ -1659,7 +1325,6 @@
       }
     });
 
-    // 初始化啟動
     applySettingsUI();
     renderSingleBookCard(false);
   </script>
