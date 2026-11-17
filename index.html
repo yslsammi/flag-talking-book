@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>尊重旗徽・互動點讀書 - 認識國旗國徽區旗區徽與國歌</title>
+  <title>尊重旗徽・官方標準互動點讀書</title>
   <style>
     :root {
       --bg-color: #090C12;
@@ -50,7 +50,7 @@
       touch-action: manipulation;
     }
 
-    /* === 頂部模式切換與狀態欄 === */
+    /* === 頂部模式切換欄 === */
     #top-bar {
       position: fixed;
       top: 10px;
@@ -78,14 +78,13 @@
       font-size: clamp(1.05rem, 2vw, 1.35rem);
       font-weight: 900;
       cursor: pointer;
-      transition: transform 0.12s ease, background-color 0.2s ease;
     }
 
     .mode-tab-btn.active {
       background: #FFFF00;
       color: #000000;
       border-color: #FFFF00;
-      box-shadow: 0 0 20px rgba(255, 255, 0, 0.55);
+      box-shadow: 0 0 18px rgba(255, 255, 0, 0.55);
     }
 
     .mode-tab-btn:active {
@@ -104,11 +103,7 @@
       white-space: nowrap;
     }
 
-    #replay-speech-btn:active {
-      transform: scale(0.95);
-    }
-
-    /* === 教師設定按鈕（左上角齒輪） === */
+    /* === 左上角教師設定按鈕 === */
     #teacher-trigger {
       position: fixed;
       top: 10px;
@@ -116,8 +111,8 @@
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background: rgba(80, 85, 95, 0.85);
-      border: 2px solid rgba(255, 255, 255, 0.4);
+      background: rgba(80, 85, 95, 0.88);
+      border: 2px solid rgba(255, 255, 255, 0.45);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -140,39 +135,39 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 68px 16px 16px 16px;
-      gap: 12px;
+      padding: 68px 16px 14px 16px;
+      gap: 10px;
       overflow: hidden;
     }
 
-    /* 頂部語音字幕顯示橫幅 */
+    /* 簡短語音字幕橫幅 */
     #caption-banner {
       width: 100%;
-      max-width: 1260px;
+      max-width: 1280px;
       background-color: var(--card-bg);
       border: 5px solid var(--card-border);
       border-radius: 22px;
       padding: 10px 20px;
       text-align: center;
-      font-size: clamp(1.25rem, 2.4vw, 1.95rem);
+      font-size: clamp(1.35rem, 2.6vw, 2.15rem);
       font-weight: 900;
       color: var(--text-color);
-      line-height: 1.35;
+      line-height: 1.3;
       flex-shrink: 0;
     }
 
     /* =========================================
-       模式一：互動點讀書網格（6 張有聲大圖卡）
+       模式一：分層點讀書網格（6 張官方圖卡）
        ========================================= */
     #talking-book-view {
       width: 100%;
-      max-width: 1260px;
+      max-width: 1280px;
       flex: 1;
       min-height: 0;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(2, 1fr);
-      gap: clamp(12px, 2vw, 22px);
+      gap: clamp(10px, 1.8vw, 20px);
     }
 
     @media (max-width: 820px) {
@@ -188,60 +183,86 @@
     .talk-card {
       background-color: var(--card-bg);
       border: 6px solid #00E5FF;
-      border-radius: 26px;
+      border-radius: 24px;
       padding: 10px 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      cursor: pointer;
-      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
-      transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
       min-height: 0;
       overflow: hidden;
     }
 
-    .talk-card:active {
-      transform: scale(0.96);
-    }
-
-    /* 點讀發聲中發光效果 */
     .talk-card.speaking-active {
       border-color: #00FF66 !important;
-      background-color: #1F3329 !important;
-      transform: scale(1.03);
-      box-shadow: 0 0 42px rgba(0, 255, 102, 0.9);
+      box-shadow: 0 0 38px rgba(0, 255, 102, 0.9);
+      transform: scale(1.02);
     }
 
-    body.light-theme .talk-card.speaking-active {
-      background-color: #DCFCE7 !important;
-    }
-
-    .talk-card-graphic {
+    /* 官方圖片展示區（可點擊先講名稱） */
+    .talk-card-img-wrap {
       width: 100%;
       flex: 1;
       min-height: 0;
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
     }
 
-    .talk-card-graphic svg {
-      width: 100%;
-      height: 100%;
+    .talk-card-img-wrap img {
+      max-width: 100%;
       max-height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 6px;
     }
 
-    .talk-card-label {
-      font-size: clamp(1.15rem, 2.1vw, 1.65rem);
+    .talk-card-title {
+      font-size: clamp(1.1rem, 1.9vw, 1.5rem);
       font-weight: 900;
       color: var(--subtext-color);
-      margin-top: 6px;
+      margin: 4px 0 6px 0;
       text-align: center;
-      display: flex;
-      align-items: center;
-      gap: 6px;
       flex-shrink: 0;
+    }
+
+    /* 分層雙按鈕：① 講名稱 / ② 講特徵 */
+    .card-step-btns {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .step-btn {
+      border: none;
+      border-radius: 14px;
+      padding: 9px 6px;
+      font-size: clamp(0.95rem, 1.6vw, 1.25rem);
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+
+    .step-btn:active {
+      transform: scale(0.94);
+    }
+
+    .step-btn-name {
+      background: #FFFF00;
+      color: #000000;
+    }
+
+    .step-btn-feature {
+      background: #00FF66;
+      color: #000000;
     }
 
     /* =========================================
@@ -249,7 +270,7 @@
        ========================================= */
     #quiz-view {
       width: 100%;
-      max-width: 1260px;
+      max-width: 1280px;
       flex: 1;
       min-height: 0;
       display: none;
@@ -261,7 +282,7 @@
 
     #quiz-illustration-box {
       width: 100%;
-      max-width: 680px;
+      max-width: 640px;
       flex: 1;
       min-height: 0;
       background-color: #131B2E;
@@ -270,21 +291,21 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 10px;
+      padding: 14px;
     }
 
     body.light-theme #quiz-illustration-box {
-      background-color: #E8F4FF;
+      background-color: #FFFFFF;
       border-color: #002868;
     }
 
-    #quiz-illustration-box svg {
-      width: 100%;
-      height: 100%;
+    #quiz-illustration-box img {
+      max-width: 100%;
       max-height: 100%;
+      object-fit: contain;
     }
 
-    /* 兩個大幅分開的左右選項 */
+    /* 左右大幅分開的兩個選項 */
     #quiz-choices-row {
       width: 100%;
       display: flex;
@@ -318,10 +339,6 @@
       .choice-btn {
         max-width: 100%;
       }
-    }
-
-    .choice-btn:active {
-      transform: scale(0.96);
     }
 
     .choice-btn.reading-now {
@@ -370,10 +387,10 @@
     }
 
     .choice-text {
-      font-size: clamp(1.2rem, 2.2vw, 1.75rem);
+      font-size: clamp(1.25rem, 2.3vw, 1.85rem);
       font-weight: 900;
       color: var(--subtext-color);
-      line-height: 1.35;
+      line-height: 1.3;
     }
 
     /* 下一題特大按鈕 */
@@ -398,23 +415,26 @@
       box-shadow: 0 0 34px rgba(0, 255, 102, 0.95);
     }
 
-    /* === 教師設定面板 === */
+    /* === 教師設定與自訂更換圖片面板 === */
     #teacher-panel {
       position: fixed;
       inset: 0;
-      background-color: rgba(0, 0, 0, 0.86);
+      background-color: rgba(0, 0, 0, 0.88);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 200;
       padding: 14px;
+      overflow-y: auto;
     }
 
     .panel-card {
       background-color: var(--panel-bg);
       color: #FFFFFF;
       width: 100%;
-      max-width: 720px;
+      max-width: 840px;
+      max-height: 88dvh;
+      overflow-y: auto;
       border-radius: 22px;
       border: 2px solid var(--border-color);
       padding: 22px;
@@ -444,6 +464,7 @@
       font-weight: 800;
       margin-bottom: 8px;
       font-size: 1.05rem;
+      color: #EFEFEF;
     }
 
     .btn-group {
@@ -458,7 +479,7 @@
       border: 2px solid #484E60;
       border-radius: 12px;
       padding: 10px 16px;
-      font-size: 0.96rem;
+      font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
     }
@@ -467,6 +488,77 @@
       background: #FFFF00;
       color: #000000;
       border-color: #FFFF00;
+    }
+
+    /* 教師更換圖片清單 */
+    .custom-img-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 640px) {
+      .custom-img-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .custom-img-item {
+      background: #232732;
+      border: 1px solid #444854;
+      border-radius: 14px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .custom-img-thumb {
+      width: 64px;
+      height: 48px;
+      object-fit: contain;
+      background: #0F131A;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .custom-img-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .custom-img-name {
+      font-weight: 800;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+
+    .custom-img-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .upload-label-btn {
+      background: #00E5FF;
+      color: #000000;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .restore-default-btn {
+      background: #3A3A3C;
+      color: #FFFFFF;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
     }
 
     .btn-close {
@@ -479,6 +571,7 @@
       color: #000000;
       border: none;
       cursor: pointer;
+      margin-top: 8px;
     }
 
     .particle {
@@ -492,7 +585,7 @@
 <body>
 
   <!-- 左上角教師設定 -->
-  <button type="button" id="teacher-trigger" title="教師設定">
+  <button type="button" id="teacher-trigger" title="教師設定與更換圖片">
     <svg viewBox="0 0 24 24">
       <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
     </svg>
@@ -501,17 +594,17 @@
   <!-- 頂部模式切換欄 -->
   <div id="top-bar">
     <div class="mode-tabs">
-      <button type="button" class="mode-tab-btn active" id="tab-book-btn">📖 點讀書（一撳即聽）</button>
-      <button type="button" class="mode-tab-btn" id="tab-quiz-btn">❓ 小測試選擇題</button>
+      <button type="button" class="mode-tab-btn active" id="tab-book-btn">📖 點讀書</button>
+      <button type="button" class="mode-tab-btn" id="tab-quiz-btn">❓ 選擇題</button>
     </div>
     <button type="button" id="replay-speech-btn">🔊 再讀一次</button>
   </div>
 
   <!-- 主舞台 -->
   <div id="main-container">
-    <div id="caption-banner">👆 撳任何一張圖卡，一齊聽下國旗、國徽、區旗、區徽同國歌啦！</div>
+    <div id="caption-banner">👆 先撳「🔊 講名稱」，再撳「🔍 講特徵」！</div>
 
-    <!-- 模式一：點讀書網格 -->
+    <!-- 模式一：分層點讀書網格 -->
     <div id="talking-book-view"></div>
 
     <!-- 模式二：小測試選擇題 -->
@@ -521,32 +614,37 @@
     </div>
   </div>
 
-  <!-- 過關後下一題按钮 -->
+  <!-- 過關後下一題按鈕 -->
   <div id="next-question-bar">
     <button type="button" id="next-question-btn">➡️ 下一題</button>
   </div>
 
-  <!-- 教師設定面板 -->
+  <!-- 教師設定與更換圖片面板 -->
   <div id="teacher-panel">
     <div class="panel-card">
       <div class="panel-header">
-        <h2>👩‍🏫 尊重旗徽・互動點讀書設定</h2>
+        <h2>👩‍🏫 教師設定與更換圖片</h2>
       </div>
 
       <div class="setting-group">
-        <label>1. 畫面背景高對比主題</label>
+        <label>1. 畫面背景對比主題</label>
         <div class="btn-group" data-setting="theme">
-          <button type="button" class="opt-btn active" data-val="dark">深黑高對比背景（低視能首選）</button>
-          <button type="button" class="opt-btn" data-val="light">亮白高對比背景（課室大螢幕投影推薦）</button>
+          <button type="button" class="opt-btn active" data-val="dark">深黑高對比背景</button>
+          <button type="button" class="opt-btn" data-val="light">亮白高對比背景（投影推薦）</button>
         </div>
       </div>
 
       <div class="setting-group">
-        <label>2. 小測試答對後跳去下一題方式</label>
+        <label>2. 選擇題答對後跳去下一題方式</label>
         <div class="btn-group" data-setting="advanceMode">
-          <button type="button" class="opt-btn active" data-val="manual">手動按「➡️ 下一題」按鈕（方便老師講解）</button>
-          <button type="button" class="opt-btn" data-val="auto4">答對後停留 4 秒自動下一題</button>
+          <button type="button" class="opt-btn active" data-val="manual">手動按「➡️ 下一題」按鈕</button>
+          <button type="button" class="opt-btn" data-val="auto4">停留 4 秒自動下一題</button>
         </div>
+      </div>
+
+      <div class="setting-group">
+        <label>3. 自訂更換圖片（預設已使用官方標準圖檔，老師可隨時從相簿更換）</label>
+        <div class="custom-img-grid" id="custom-img-manager"></div>
       </div>
 
       <button type="button" class="btn-close" id="close-panel-btn">儲存並返回</button>
@@ -554,251 +652,178 @@
   </div>
 
   <script>
-    // === 高清標準矢量圖形元件（國旗、區旗、國徽、區徽、國歌、升旗禮儀） ===
-    const SVG_GRAPHICS = {
-      nationalFlag: `
-        <svg viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg">
-          <rect x="15" y="15" width="330" height="210" rx="12" fill="#DE2910" stroke="#FFFFFF" stroke-width="5"/>
-          <!-- 大五角星 -->
-          <polygon points="75,42 83,66 108,66 88,81 95,105 75,90 55,105 62,81 42,66 67,66" fill="#FFDE00"/>
-          <!-- 四顆小五角星 -->
-          <polygon points="132,32 135,41 144,41 137,46 139,55 132,50 125,55 127,46 120,41 129,41" fill="#FFDE00"/>
-          <polygon points="154,56 157,65 166,65 159,70 161,79 154,74 147,79 149,70 142,65 151,65" fill="#FFDE00"/>
-          <polygon points="154,88 157,97 166,97 159,102 161,111 154,106 147,111 149,102 142,97 151,97" fill="#FFDE00"/>
-          <polygon points="132,112 135,121 144,121 137,126 139,135 132,130 125,135 127,126 120,121 129,121" fill="#FFDE00"/>
+    // === 官方標準矢量圖檔（Wikimedia Commons 官方標準 SVG，嚴格符合法定設計） ===
+    // 1. 中華人民共和國國旗官方標準矢量檔
+    // 2. 香港特別行政區區旗官方標準矢量檔
+    // 3. 中華人民共和國國徽官方標準矢量檔
+    // 4. 香港特別行政區區徽官方標準矢量檔
+    // 5. 國歌音樂圖示 / 升旗立正示意圖（內置清晰無文字純圖示，教師亦可隨時自行上傳更換）
+    const DEFAULT_IMAGES = {
+      national_flag: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_the_People%27s_Republic_of_China.svg',
+      hk_flag: 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Flag_of_Hong_Kong.svg',
+      national_emblem: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/National_Emblem_of_the_People%27s_Republic_of_China_%282%29.svg',
+      hk_emblem: 'https://upload.wikimedia.org/wikipedia/commons/9/90/Regional_Emblem_of_Hong_Kong.svg',
+      anthem: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+        <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="220" rx="18" fill="#1E293B"/>
+          <circle cx="115" cy="145" r="22" fill="#FFFF00"/>
+          <circle cx="205" cy="128" r="22" fill="#FFFF00"/>
+          <path d="M134 145 L134 52 L224 36 L224 128" stroke="#FFFF00" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
         </svg>
-      `,
-      hkFlag: `
-        <svg viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg">
-          <rect x="15" y="15" width="330" height="210" rx="12" fill="#DE2910" stroke="#FFFFFF" stroke-width="5"/>
-          <!-- 五瓣白色洋紫荊花 -->
-          <g transform="translate(180, 120)">
-            <g transform="rotate(0)"><path d="M0,0 C-18,-25 -14,-62 8,-66 C24,-62 20,-26 0,0 Z" fill="#FFFFFF"/><circle cx="3" cy="-38" r="3.5" fill="#DE2910"/></g>
-            <g transform="rotate(72)"><path d="M0,0 C-18,-25 -14,-62 8,-66 C24,-62 20,-26 0,0 Z" fill="#FFFFFF"/><circle cx="3" cy="-38" r="3.5" fill="#DE2910"/></g>
-            <g transform="rotate(144)"><path d="M0,0 C-18,-25 -14,-62 8,-66 C24,-62 20,-26 0,0 Z" fill="#FFFFFF"/><circle cx="3" cy="-38" r="3.5" fill="#DE2910"/></g>
-            <g transform="rotate(216)"><path d="M0,0 C-18,-25 -14,-62 8,-66 C24,-62 20,-26 0,0 Z" fill="#FFFFFF"/><circle cx="3" cy="-38" r="3.5" fill="#DE2910"/></g>
-            <g transform="rotate(288)"><path d="M0,0 C-18,-25 -14,-62 8,-66 C24,-62 20,-26 0,0 Z" fill="#FFFFFF"/><circle cx="3" cy="-38" r="3.5" fill="#DE2910"/></g>
-          </g>
+      `),
+      ceremony: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+        <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="220" rx="18" fill="#0284C7"/>
+          <rect y="175" width="320" height="45" fill="#22C55E"/>
+          <circle cx="160" cy="58" r="26" fill="#FDE68A" stroke="#000000" stroke-width="4"/>
+          <rect x="136" y="88" width="48" height="62" rx="14" fill="#FACC15" stroke="#000000" stroke-width="4"/>
+          <line x1="128" y1="92" x2="128" y2="146" stroke="#FDE68A" stroke-width="11" stroke-linecap="round"/>
+          <line x1="192" y1="92" x2="192" y2="146" stroke="#FDE68A" stroke-width="11" stroke-linecap="round"/>
+          <line x1="148" y1="150" x2="148" y2="185" stroke="#1E293B" stroke-width="12" stroke-linecap="round"/>
+          <line x1="172" y1="150" x2="172" y2="185" stroke="#1E293B" stroke-width="12" stroke-linecap="round"/>
         </svg>
-      `,
-      nationalEmblem: `
-        <svg viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg">
-          <!-- 圓形金邊紅底國徽 -->
-          <circle cx="180" cy="120" r="98" fill="#DE2910" stroke="#FFDE00" stroke-width="12"/>
-          <circle cx="180" cy="120" r="84" fill="none" stroke="#FFDE00" stroke-width="3" stroke-dasharray="8 6"/>
-          <!-- 上方五顆金星 -->
-          <polygon points="180,44 184,56 196,56 186,63 190,75 180,68 170,75 174,63 164,56 176,56" fill="#FFDE00"/>
-          <circle cx="152" cy="64" r="5" fill="#FFDE00"/><circle cx="208" cy="64" r="5" fill="#FFDE00"/>
-          <circle cx="138" cy="80" r="5" fill="#FFDE00"/><circle cx="222" cy="80" r="5" fill="#FFDE00"/>
-          <!-- 金色天安門城樓輪廓 -->
-          <polygon points="122,116 180,90 238,116" fill="#FFDE00"/>
-          <rect x="130" y="116" width="100" height="18" fill="#FFDE00"/>
-          <rect x="115" y="136" width="130" height="36" rx="4" fill="#FFDE00"/>
-          <rect x="172" y="150" width="16" height="22" rx="8" fill="#DE2910"/>
-          <rect x="142" y="154" width="12" height="18" rx="6" fill="#DE2910"/>
-          <rect x="206" y="154" width="12" height="18" rx="6" fill="#DE2910"/>
-          <!-- 底部齒輪 -->
-          <circle cx="180" cy="190" r="14" fill="#FFDE00"/>
-        </svg>
-      `,
-      hkEmblem: `
-        <svg viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg">
-          <!-- 圓形白邊紅底區徽 -->
-          <circle cx="180" cy="120" r="98" fill="#FFFFFF" stroke="#DE2910" stroke-width="8"/>
-          <circle cx="180" cy="120" r="76" fill="#DE2910"/>
-          <!-- 中間白色洋紫荊花 -->
-          <g transform="translate(180, 120) scale(0.85)">
-            <g transform="rotate(0)"><path d="M0,0 C-18,-25 -14,-62 8,-66 C24,-62 20,-26 0,0 Z" fill="#FFFFFF"/><circle cx="3" cy="-38" r="3.5" fill="#DE2910"/></g>
-            <g transform="rotate(72)"><path d="M0,0 C-18,-25 -14,-62 8,-66 C24,-62 20,-26 0,0 Z" fill="#FFFFFF"/><circle cx="3" cy="-38" r="3.5" fill="#DE2910"/></g>
-            <g transform="rotate(144)"><path d="M0,0 C-18,-25 -14,-62 8,-66 C24,-62 20,-26 0,0 Z" fill="#FFFFFF"/><circle cx="3" cy="-38" r="3.5" fill="#DE2910"/></g>
-            <g transform="rotate(216)"><path d="M0,0 C-18,-25 -14,-62 8,-66 C24,-62 20,-26 0,0 Z" fill="#FFFFFF"/><circle cx="3" cy="-38" r="3.5" fill="#DE2910"/></g>
-            <g transform="rotate(288)"><path d="M0,0 C-18,-25 -14,-62 8,-66 C24,-62 20,-26 0,0 Z" fill="#FFFFFF"/><circle cx="3" cy="-38" r="3.5" fill="#DE2910"/></g>
-          </g>
-        </svg>
-      `,
-      nationalAnthem: `
-        <svg viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg">
-          <rect x="15" y="15" width="330" height="210" rx="18" fill="#1E293B" stroke="#FFFF00" stroke-width="5"/>
-          <!-- 金色號角與大音符 -->
-          <path d="M75,135 L155,112 L155,158 Z" fill="#FACC15" stroke="#000000" stroke-width="4"/>
-          <rect x="55" y="126" width="26" height="18" rx="4" fill="#FACC15" stroke="#000000" stroke-width="4"/>
-          <!-- 音波弧線 -->
-          <path d="M172,115 Q192,135 172,155" stroke="#00FF66" stroke-width="7" stroke-linecap="round" fill="none"/>
-          <path d="M192,98 Q222,135 192,172" stroke="#00FF66" stroke-width="7" stroke-linecap="round" fill="none"/>
-          <!-- 雙八分音符 -->
-          <circle cx="245" cy="158" r="16" fill="#38BDF8" stroke="#FFFFFF" stroke-width="3"/>
-          <circle cx="298" cy="146" r="16" fill="#38BDF8" stroke="#FFFFFF" stroke-width="3"/>
-          <path d="M259,158 L259,75 L312,63 L312,146" stroke="#38BDF8" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          <text x="180" y="48" font-size="22" font-weight="900" text-anchor="middle" fill="#FFFF00">🎺 義勇軍進行曲</text>
-        </svg>
-      `,
-      flagCeremony: `
-        <svg viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg">
-          <rect x="15" y="15" width="330" height="210" rx="18" fill="#0284C7" stroke="#FFFFFF" stroke-width="5"/>
-          <rect x="15" y="175" width="330" height="50" rx="8" fill="#22C55E"/>
-          <!-- 旗桿與國旗 -->
-          <rect x="92" y="34" width="8" height="150" fill="#E2E8F0" stroke="#000000" stroke-width="2"/>
-          <circle cx="96" cy="30" r="7" fill="#FACC15"/>
-          <rect x="100" y="38" width="84" height="54" fill="#DE2910" stroke="#FFFFFF" stroke-width="2"/>
-          <polygon points="116,48 119,56 128,56 121,61 123,69 116,64 109,69 111,61 104,56 113,56" fill="#FFDE00"/>
-          <!-- 立正肅立、雙手垂低的小朋友 -->
-          <g transform="translate(235, 118)">
-            <rect x="-20" y="26" width="40" height="56" rx="12" fill="#FACC15" stroke="#000000" stroke-width="4"/>
-            <!-- 雙手垂直貼緊身體 -->
-            <line x1="-24" y1="30" x2="-24" y2="75" stroke="#FDE68A" stroke-width="10" stroke-linecap="round"/>
-            <line x1="24" y1="30" x2="24" y2="75" stroke="#FDE68A" stroke-width="10" stroke-linecap="round"/>
-            <circle cx="0" cy="0" r="28" fill="#FDE68A" stroke="#000000" stroke-width="4"/>
-            <path d="M-28 -4 Q-24 -32 0 -32 Q24 -32 28 -4 Z" fill="#1E293B"/>
-            <!-- 眼神向左望住國旗 -->
-            <circle cx="-12" cy="0" r="4" fill="#000000"/>
-            <circle cx="4" cy="0" r="4" fill="#000000"/>
-            <path d="M-8 12 Q0 18 8 12" stroke="#000000" stroke-width="3" fill="none"/>
-          </g>
-        </svg>
-      `
+      `)
     };
 
-    // === 模式一：6 張互動點讀書圖卡資料 ===
+    // === 6 張點讀書圖卡（名稱短句 + 特徵短句分開按掣） ===
     const TALKING_CARDS = [
       {
-        id: 'card_national_flag',
-        title: '🇨🇳 中國國旗',
-        svg: SVG_GRAPHICS.nationalFlag,
-        speech: '呢幅係中華人民共和國國旗，又叫五星紅旗。紅色底色，左上角有一大四小，總共五粒黃色五角星。',
+        id: 'national_flag',
+        title: '中國國旗',
+        nameSpeech: '中國國旗。',
+        featureSpeech: '紅色底，有五粒黃色星星。',
         playAnthem: false
       },
       {
-        id: 'card_hk_flag',
-        title: '🇭🇰 香港區旗',
-        svg: SVG_GRAPHICS.hkFlag,
-        speech: '呢幅係香港特別行政區區旗。紅色底色，中間有一朵白色五塊花瓣嘅洋紫荊花。',
+        id: 'hk_flag',
+        title: '香港區旗',
+        nameSpeech: '香港區旗。',
+        featureSpeech: '紅色底，中間有白色紫荊花。',
         playAnthem: false
       },
       {
-        id: 'card_national_emblem',
-        title: '🏅 中國國徽',
-        svg: SVG_GRAPHICS.nationalEmblem,
-        speech: '呢個圓形徽章係國徽，有紅色同金色，入面有天安門城樓同五粒星星。',
+        id: 'national_emblem',
+        title: '中國國徽',
+        nameSpeech: '中國國徽。',
+        featureSpeech: '圓形，有天安門同五粒星。',
         playAnthem: false
       },
       {
-        id: 'card_hk_emblem',
-        title: '🌸 香港區徽',
-        svg: SVG_GRAPHICS.hkEmblem,
-        speech: '呢個圓形徽章係香港區徽，中間有一朵白色洋紫荊花。',
+        id: 'hk_emblem',
+        title: '香港區徽',
+        nameSpeech: '香港區徽。',
+        featureSpeech: '圓形，中間有白色紫荊花。',
         playAnthem: false
       },
       {
-        id: 'card_anthem',
-        title: '🎺 國歌（撳我聽）',
-        svg: SVG_GRAPHICS.nationalAnthem,
-        speech: '我哋嘅國歌係《義勇軍進行曲》！一聽到國歌響起，就要即刻企定立正、大聲一齊唱！',
+        id: 'anthem',
+        title: '國歌',
+        nameSpeech: '國歌，《義勇軍進行曲》。',
+        featureSpeech: '聽到國歌，要企定立正。',
         playAnthem: true
       },
       {
-        id: 'card_ceremony',
-        title: '🧍‍♂️ 升旗禮儀同愛護',
-        svg: SVG_GRAPHICS.flagCeremony,
-        speech: '升國旗同唱國歌嘅時候，要雙手垂低立正、眼神望住國旗、唔講笑。平時要愛護國旗同區旗，唔可以掉落地或者畫花！',
+        id: 'ceremony',
+        title: '升旗禮儀',
+        nameSpeech: '升旗禮儀同愛護旗徽。',
+        featureSpeech: '雙手垂低企定，唔整污糟。',
         playAnthem: false
       }
     ];
 
-    // === 模式二：緊扣初組教學目標的 8 題小測試選擇題 ===
+    // === 小測試選擇題（短句題目 + 短句選項） ===
     const QUIZ_QUESTIONS = [
       {
-        question: '邊幅係中華人民共和國國旗（五星紅旗）？',
-        svg: SVG_GRAPHICS.nationalFlag,
-        praise: '做得好！紅色底加五粒黃色星星，就係中國國旗！',
-        retry: '再睇真啲，國旗上面有五粒黃色星星㗎！',
+        question: '邊幅係中國國旗？',
+        imgId: 'national_flag',
+        praise: '答啱啦！呢幅係中國國旗。',
+        retry: '再睇真啲，國旗有五粒黃星。',
         options: [
-          { icon: '🇨🇳', text: '紅底五粒黃星嘅五星紅旗', spokenText: '紅底五粒黃星嘅五星紅旗。', isCorrect: true },
-          { icon: '🇭🇰', text: '紅底白色洋紫荊花旗', spokenText: '紅底白色洋紫荊花旗。', isCorrect: false }
+          { icon: '🇨🇳', text: '中國國旗', spokenText: '中國國旗。', isCorrect: true },
+          { icon: '🇭🇰', text: '香港區旗', spokenText: '香港區旗。', isCorrect: false }
         ]
       },
       {
-        question: '邊幅係香港特別行政區區旗？',
-        svg: SVG_GRAPHICS.hkFlag,
-        praise: '做得好！中間有白色洋紫荊花，就係香港區旗！',
-        retry: '再諗下，香港區旗中間有朵白色嘅花㗎！',
+        question: '邊幅係香港區旗？',
+        imgId: 'hk_flag',
+        praise: '答啱啦！呢幅係香港區旗。',
+        retry: '再睇下，區旗有白色紫荊花。',
         options: [
-          { icon: '🇭🇰', text: '紅底白色洋紫荊花區旗', spokenText: '紅底白色洋紫荊花區旗。', isCorrect: true },
-          { icon: '🇨🇳', text: '紅底五粒黃星旗', spokenText: '紅底五粒黃星旗。', isCorrect: false }
+          { icon: '🇭🇰', text: '香港區旗', spokenText: '香港區旗。', isCorrect: true },
+          { icon: '🇨🇳', text: '中國國旗', spokenText: '中國國旗。', isCorrect: false }
         ]
       },
       {
-        question: '邊個圓形徽章係中華人民共和國國徽？',
-        svg: SVG_GRAPHICS.nationalEmblem,
-        praise: '做得好！有天安門城樓同五粒金星嘅圓形徽章，就係國徽！',
-        retry: '再睇下圖案，國徽入面有天安門城樓同金色星星㗎！',
+        question: '呢個圓形徽章係咩？',
+        imgId: 'national_emblem',
+        praise: '答啱啦！呢個係中國國徽。',
+        retry: '再睇下，入面有天安門，係國徽。',
         options: [
-          { icon: '🏅', text: '有天安門城樓同五粒星嘅國徽', spokenText: '有天安門城樓同五粒星嘅國徽。', isCorrect: true },
-          { icon: '🌸', text: '只有白色洋紫荊花嘅區徽', spokenText: '只有白色洋紫荊花嘅區徽。', isCorrect: false }
+          { icon: '🏅', text: '中國國徽', spokenText: '中國國徽。', isCorrect: true },
+          { icon: '🌸', text: '香港區徽', spokenText: '香港區徽。', isCorrect: false }
         ]
       },
       {
-        question: '聽到國歌《義勇軍進行曲》響起，我哋應該點做？',
-        svg: SVG_GRAPHICS.nationalAnthem,
+        question: '呢個圓形徽章係咩？',
+        imgId: 'hk_emblem',
+        praise: '答啱啦！呢個係香港區徽。',
+        retry: '再睇下，中間有白色紫荊花。',
+        options: [
+          { icon: '🌸', text: '香港區徽', spokenText: '香港區徽。', isCorrect: true },
+          { icon: '🏅', text: '中國國徽', spokenText: '中國國徽。', isCorrect: false }
+        ]
+      },
+      {
+        question: '聽到國歌響起，要點做？',
+        imgId: 'anthem',
         playAnthemOnLoad: true,
-        praise: '做得好！聽到國歌要即刻企定立正、肅立跟住唱！',
-        retry: '唱國歌好莊嚴㗎，唔可以周圍走或者傾偈，試下再揀！',
+        praise: '答啱啦！要企定立正唱國歌。',
+        retry: '聽到國歌唔可以周圍走，再揀！',
         options: [
-          { icon: '🧍‍♂️🎶', text: '企定立正肅立，跟住一齊唱', spokenText: '企定立正肅立，跟住一齊唱。', isCorrect: true },
-          { icon: '🏃‍♂️🗣️', text: '周圍走動同同學傾偈講笑', spokenText: '周圍走動同同學傾偈講笑。', isCorrect: false }
+          { icon: '🧍‍♂️', text: '企定立正', spokenText: '企定立正。', isCorrect: true },
+          { icon: '🏃‍♂️', text: '周圍跑跳', spokenText: '周圍跑跳。', isCorrect: false }
         ]
       },
       {
-        question: '升國旗儀式開始啦，邊種站姿先至正確？',
-        svg: SVG_GRAPHICS.flagCeremony,
-        praise: '做得好！雙手垂低立正、眼神望住國旗，最守禮儀！',
-        retry: '升國旗時要企定望住國旗，唔可以坐低玩，再試一次！',
+        question: '點樣先係愛護國旗同區旗？',
+        imgId: 'national_flag',
+        praise: '答啱啦！雙手捧好，唔整污糟。',
+        retry: '旗幟唔可以掉落地，再揀！',
         options: [
-          { icon: '🧍‍♂️👀', text: '雙手垂低立正，眼神望住國旗', spokenText: '雙手垂低立正，眼神望住國旗。', isCorrect: true },
-          { icon: '🪑玩具', text: '坐喺地上玩玩具，唔望國旗', spokenText: '坐喺地上玩玩具，唔望國旗。', isCorrect: false }
-        ]
-      },
-      {
-        question: '平時見到國旗同區旗，點樣做先係愛護旗幟嘅守法行為？',
-        svg: SVG_GRAPHICS.nationalFlag,
-        praise: '做得好！雙手小心捧好、整齊掛起，先係愛護國旗同區旗！',
-        retry: '國旗同區旗唔可以掉落地或者畫花㗎，試下揀另一個！',
-        options: [
-          { icon: '👐✨', text: '雙手小心捧好，整齊掛起', spokenText: '雙手小心捧好，整齊掛起。', isCorrect: true },
-          { icon: '🖍️🗑️', text: '掉喺地上或者用筆畫花', spokenText: '掉喺地上或者用筆畫花。', isCorrect: false }
-        ]
-      },
-      {
-        question: '課室壁報板貼住國徽同區徽，我哋應該點做？',
-        svg: SVG_GRAPHICS.hkEmblem,
-        praise: '做得好！眼看手勿動、保持乾淨整齊，尊重國徽同區徽！',
-        retry: '唔可以撕爛壁報板上嘅國徽同區徽呀，再試一次！',
-        options: [
-          { icon: '👀💖', text: '愛護尊重，眼看手勿動', spokenText: '愛護尊重，眼看手勿動。', isCorrect: true },
-          { icon: '🖐️💥', text: '用手撕爛或者整污糟', spokenText: '用手撕爛或者整污糟。', isCorrect: false }
+          { icon: '👐', text: '雙手捧好', spokenText: '雙手捧好。', isCorrect: true },
+          { icon: '🗑️', text: '掉喺地上', spokenText: '掉喺地上。', isCorrect: false }
         ]
       }
     ];
 
-    const STORAGE_KEY = 'flag_talking_book_v1';
+    const STORAGE_KEY = 'flag_talking_book_v2';
     let state = {
       settings: {
         theme: 'dark',
         advanceMode: 'manual'
-      }
+      },
+      customImages: {}
     };
 
     try {
       const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-      if (saved && saved.settings) state.settings = { ...state.settings, ...saved.settings };
+      if (saved) {
+        if (saved.settings) state.settings = { ...state.settings, ...saved.settings };
+        if (saved.customImages) state.customImages = saved.customImages;
+      }
     } catch (e) {}
 
     function saveState() {
       try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
     }
 
+    function getCardImageSrc(id) {
+      return state.customImages[id] || DEFAULT_IMAGES[id];
+    }
+
     const runtime = {
-      mode: 'book', // 'book' | 'quiz'
-      lastSpokenText: '撳任何一張圖卡，一齊聽下國旗、國徽、區旗、區徽同國歌啦！',
+      mode: 'book',
+      lastSpokenText: '先撳「講名稱」，再撳「講特徵」。',
       quizIndex: 0,
       isAnswered: false,
       isEvaluatingChoice: false,
@@ -813,7 +838,7 @@
     const nextQuestionBar = document.getElementById('next-question-bar');
     const nextQuestionBtn = document.getElementById('next-question-btn');
 
-    // === 音效與《義勇軍進行曲》雄壯號角前奏合成器 ===
+    // === 音效與國歌前奏 ===
     let audioCtx = null;
 
     function initAudio() {
@@ -826,7 +851,6 @@
       } catch (e) {}
     }
 
-    // 播放《義勇軍進行曲》標誌性號角起音（G4 - C5 - E5 - G5 - E5 - C5 - G5）
     function playNationalAnthemIntro(onFinish) {
       initAudio();
       if (!audioCtx) {
@@ -834,17 +858,15 @@
         return;
       }
       try {
-        // 軍號節奏：起來！不願做奴隸的人們！前奏號角音型
         const notes = [
-          { freq: 392.00, time: 0.00, dur: 0.22 }, // G4
-          { freq: 523.25, time: 0.25, dur: 0.35 }, // C5
-          { freq: 659.25, time: 0.65, dur: 0.22 }, // E5
-          { freq: 783.99, time: 0.90, dur: 0.42 }, // G5
-          { freq: 659.25, time: 1.38, dur: 0.20 }, // E5
-          { freq: 523.25, time: 1.62, dur: 0.22 }, // C5
-          { freq: 783.99, time: 1.90, dur: 0.65 }  // G5
+          { freq: 392.00, time: 0.00, dur: 0.22 },
+          { freq: 523.25, time: 0.25, dur: 0.35 },
+          { freq: 659.25, time: 0.65, dur: 0.22 },
+          { freq: 783.99, time: 0.90, dur: 0.42 },
+          { freq: 659.25, time: 1.38, dur: 0.20 },
+          { freq: 523.25, time: 1.62, dur: 0.22 },
+          { freq: 783.99, time: 1.90, dur: 0.65 }
         ];
-
         notes.forEach(n => {
           const start = audioCtx.currentTime + n.time;
           const osc = audioCtx.createOscillator();
@@ -852,7 +874,6 @@
           osc.type = 'sawtooth';
           osc.frequency.setValueAtTime(n.freq, start);
 
-          // 柔和低通濾波模擬銅管號角溫暖音色
           const filter = audioCtx.createBiquadFilter();
           filter.type = 'lowpass';
           filter.frequency.setValueAtTime(1600, start);
@@ -867,10 +888,7 @@
           osc.start(start);
           osc.stop(start + n.dur + 0.02);
         });
-
-        if (onFinish) {
-          setTimeout(onFinish, 2650);
-        }
+        if (onFinish) setTimeout(onFinish, 2650);
       } catch (e) {
         if (onFinish) onFinish();
       }
@@ -957,7 +975,7 @@
         if (onComplete) onComplete();
       };
 
-      const estimatedMs = Math.max(1600, String(text).length * 240 + 700);
+      const estimatedMs = Math.max(1400, String(text).length * 240 + 650);
       if (onComplete) {
         fallbackCallbackTimer = setTimeout(fireOnce, estimatedMs);
       }
@@ -970,8 +988,8 @@
           if (cantoneseVoice) utter.voice = cantoneseVoice;
           utter.rate = 0.88;
           utter.pitch = 1.15;
-          utter.onend = () => setTimeout(fireOnce, 450);
-          utter.onerror = () => setTimeout(fireOnce, 450);
+          utter.onend = () => setTimeout(fireOnce, 400);
+          utter.onerror = () => setTimeout(fireOnce, 400);
           window.speechSynthesis.speak(utter);
         } catch (err) {
           fireOnce();
@@ -979,40 +997,56 @@
       }, 50);
     }
 
-    // === 初始化模式一：互動點讀書 ===
+    // === 模式一：渲染分層點讀書 ===
     function renderTalkingBook() {
       talkingBookView.innerHTML = '';
       TALKING_CARDS.forEach(card => {
         const el = document.createElement('div');
         el.className = 'talk-card';
         el.innerHTML = `
-          <div class="talk-card-graphic">${card.svg}</div>
-          <div class="talk-card-label">🔊 ${card.title}</div>
+          <div class="talk-card-img-wrap" title="撳圖片聽名稱">
+            <img src="${getCardImageSrc(card.id)}" alt="${card.title}" />
+          </div>
+          <div class="talk-card-title">${card.title}</div>
+          <div class="card-step-btns">
+            <button type="button" class="step-btn step-btn-name">🔊 講名稱</button>
+            <button type="button" class="step-btn step-btn-feature">🔍 講特徵</button>
+          </div>
         `;
-        el.addEventListener('click', () => {
+
+        const triggerName = () => {
           initAudio();
           document.querySelectorAll('.talk-card').forEach(c => c.classList.remove('speaking-active'));
           el.classList.add('speaking-active');
-          captionBanner.textContent = `🔊 ${card.speech}`;
+          captionBanner.textContent = `🔊 ${card.nameSpeech}`;
 
           if (card.playAnthem) {
             try { window.speechSynthesis.cancel(); } catch (e) {}
             playNationalAnthemIntro(() => {
-              speakCantonese(card.speech, () => {
-                el.classList.remove('speaking-active');
-              });
+              speakCantonese(card.nameSpeech, () => el.classList.remove('speaking-active'));
             });
           } else {
-            speakCantonese(card.speech, () => {
-              el.classList.remove('speaking-active');
-            });
+            speakCantonese(card.nameSpeech, () => el.classList.remove('speaking-active'));
           }
-        });
+        };
+
+        const triggerFeature = () => {
+          initAudio();
+          document.querySelectorAll('.talk-card').forEach(c => c.classList.remove('speaking-active'));
+          el.classList.add('speaking-active');
+          captionBanner.textContent = `🔍 ${card.featureSpeech}`;
+          speakCantonese(card.featureSpeech, () => el.classList.remove('speaking-active'));
+        };
+
+        el.querySelector('.talk-card-img-wrap').addEventListener('click', triggerName);
+        el.querySelector('.step-btn-name').addEventListener('click', triggerName);
+        el.querySelector('.step-btn-feature').addEventListener('click', triggerFeature);
+
         talkingBookView.appendChild(el);
       });
     }
 
-    // === 初始化模式二：小測試選擇題 ===
+    // === 模式二：小測試選擇題 ===
     function loadQuizQuestion() {
       if (runtime.autoNextTimer) {
         clearTimeout(runtime.autoNextTimer);
@@ -1028,7 +1062,7 @@
 
       const q = QUIZ_QUESTIONS[runtime.quizIndex];
       captionBanner.textContent = `❓ 第 ${runtime.quizIndex + 1} / ${QUIZ_QUESTIONS.length} 題：${q.question}`;
-      quizIllustrationBox.innerHTML = q.svg;
+      quizIllustrationBox.innerHTML = `<img src="${getCardImageSrc(q.imgId)}" alt="題目圖片" />`;
 
       const shuffled = [...q.options].sort(() => Math.random() - 0.5);
       const colors = ['#FFFF00', '#00E5FF'];
@@ -1063,7 +1097,6 @@
       btnEl.classList.add('reading-now');
       captionBanner.textContent = `🗣️ 「${opt.text}」`;
 
-      // 先讀出選項內容，讀完先至揭曉對錯
       speakCantonese(opt.spokenText, () => {
         btnEl.classList.remove('reading-now');
         if (opt.isCorrect) {
@@ -1081,7 +1114,7 @@
           speakCantonese(q.praise);
 
           const isLast = (runtime.quizIndex + 1 >= QUIZ_QUESTIONS.length);
-          nextQuestionBtn.textContent = isLast ? '🔄 再玩一次選擇題' : '➡️ 下一題';
+          nextQuestionBtn.textContent = isLast ? '🔄 再玩一次' : '➡️ 下一題';
           nextQuestionBar.style.display = 'block';
 
           if (state.settings.advanceMode === 'auto4') {
@@ -1126,7 +1159,7 @@
       }
     }
 
-    // === 切換「點讀書模式」與「小測試選擇題」 ===
+    // === 切換「點讀書」與「選擇題」 ===
     const tabBookBtn = document.getElementById('tab-book-btn');
     const tabQuizBtn = document.getElementById('tab-quiz-btn');
 
@@ -1139,8 +1172,8 @@
       tabQuizBtn.classList.remove('active');
       quizView.style.display = 'none';
       talkingBookView.style.display = 'grid';
-      captionBanner.textContent = '👆 撳任何一張圖卡，一齊聽下國旗、國徽、區旗、區徽同國歌啦！';
-      speakCantonese('撳任何一張圖卡，一齊聽下國旗、國徽、區旗、區徽同國歌啦！');
+      captionBanner.textContent = '👆 先撳「🔊 講名稱」，再撳「🔍 講特徵」！';
+      speakCantonese('先撳講名稱，再撳講特徵。');
     });
 
     tabQuizBtn.addEventListener('click', () => {
@@ -1159,10 +1192,58 @@
       speakCantonese(runtime.lastSpokenText);
     });
 
-    // === 教師設定面板 ===
+    // === 教師設定面板與自訂圖片上傳管理器 ===
     const teacherPanel = document.getElementById('teacher-panel');
+    const customImgManager = document.getElementById('custom-img-manager');
+
+    function renderCustomImageManager() {
+      customImgManager.innerHTML = '';
+      TALKING_CARDS.forEach(card => {
+        const item = document.createElement('div');
+        item.className = 'custom-img-item';
+        const inputId = `upload_${card.id}`;
+        item.innerHTML = `
+          <img class="custom-img-thumb" id="thumb_${card.id}" src="${getCardImageSrc(card.id)}" alt="${card.title}" />
+          <div class="custom-img-info">
+            <div class="custom-img-name">${card.title}</div>
+            <div class="custom-img-actions">
+              <label class="upload-label-btn" for="${inputId}">📁 更換圖片</label>
+              <input type="file" id="${inputId}" accept="image/*" style="display:none;" />
+              <button type="button" class="restore-default-btn" data-id="${card.id}">還原官方圖</button>
+            </div>
+          </div>
+        `;
+
+        const fileInput = item.querySelector(`#${inputId}`);
+        fileInput.addEventListener('change', (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            state.customImages[card.id] = ev.target.result;
+            saveState();
+            document.getElementById(`thumb_${card.id}`).src = ev.target.result;
+            renderTalkingBook();
+            if (runtime.mode === 'quiz') loadQuizQuestion();
+          };
+          reader.readAsDataURL(file);
+        });
+
+        item.querySelector('.restore-default-btn').addEventListener('click', () => {
+          delete state.customImages[card.id];
+          saveState();
+          document.getElementById(`thumb_${card.id}`).src = DEFAULT_IMAGES[card.id];
+          renderTalkingBook();
+          if (runtime.mode === 'quiz') loadQuizQuestion();
+        });
+
+        customImgManager.appendChild(item);
+      });
+    }
+
     document.getElementById('teacher-trigger').addEventListener('click', () => {
       applySettingsUI();
+      renderCustomImageManager();
       teacherPanel.style.display = 'flex';
     });
 
