@@ -6,6 +6,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>認識國家與香港・官方標準互動點讀書</title>
+  <!-- 載入 PptxGenJS 用於一鍵生成可列印 PowerPoint (.pptx) -->
+  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
   <style>
     :root {
       --bg-color: #090C12;
@@ -188,7 +190,6 @@
       transform: scale(1.015);
     }
 
-    /* 強制將所有圖片（包括較小解像度的香港區旗）等比例放大至填滿外框 */
     #single-official-img {
       width: 100%;
       height: 100%;
@@ -307,7 +308,6 @@
       .nav-arrow-btn { flex: 1; }
     }
 
-    /* 選擇題左右兩張大圖同樣自動等比例放大填滿卡片 */
     .img-choice-card img {
       width: 100%;
       height: 100%;
@@ -550,6 +550,58 @@
       border-color: #00FF66;
     }
 
+    /* 匯出 PPT 按鈕區塊 */
+    .export-ppt-box {
+      background: #1D2534;
+      border: 2px solid #00E5FF;
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .export-ppt-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-export-ppt {
+      flex: 1;
+      min-width: 220px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 900;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .btn-export-ppt:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    #export-ppt-cards-btn {
+      background: #00E5FF;
+      color: #000000;
+    }
+
+    #export-ppt-full-btn {
+      background: #FF9F0A;
+      color: #000000;
+    }
+
+    #export-ppt-status {
+      font-size: 0.9rem;
+      color: #00FF66;
+      font-weight: 700;
+      min-height: 1.2em;
+    }
+
     .btn-close {
       width: 100%;
       padding: 14px;
@@ -560,7 +612,7 @@
       color: #000000;
       border: none;
       cursor: pointer;
-      margin-top: 8px;
+      margin-top: 4px;
     }
 
     .particle {
@@ -573,7 +625,7 @@
 </head>
 <body>
 
-  <button type="button" id="teacher-trigger" title="教師設定與更換圖片">
+  <button type="button" id="teacher-trigger" title="教師設定與匯出 PPT">
     <svg viewBox="0 0 24 24">
       <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
     </svg>
@@ -619,11 +671,22 @@
   <div id="teacher-panel">
     <div class="panel-card">
       <div class="panel-header">
-        <h2>👩‍🏫 教師設定、更換圖片與讀白</h2>
+        <h2>👩‍🏫 教師設定、匯出 PPT 列印與讀白</h2>
       </div>
 
       <div class="setting-group">
-        <label>1. 畫面背景高對比主題</label>
+        <label>1. 匯出 PowerPoint（.pptx）方便課室投影或列印成實體圖卡 / 工作紙</label>
+        <div class="export-ppt-box">
+          <div class="export-ppt-row">
+            <button type="button" class="btn-export-ppt" id="export-ppt-cards-btn">📥 匯出 PPT（6 張教學圖卡）</button>
+            <button type="button" class="btn-export-ppt" id="export-ppt-full-btn">📥 匯出 PPT（圖卡 + 二選一工作紙）</button>
+          </div>
+          <div id="export-ppt-status">💡 匯出檔案採用純白底、特大字與原比例高對比外框，方便直接列印。</div>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <label>2. 畫面背景高對比主題</label>
         <div class="btn-group" data-setting="theme">
           <button type="button" class="opt-btn active" data-val="dark">深黑高對比背景（低視能首選）</button>
           <button type="button" class="opt-btn" data-val="light">亮白高對比背景（投影推薦）</button>
@@ -631,7 +694,7 @@
       </div>
 
       <div class="setting-group">
-        <label>2. 二選一練習答對後跳題方式</label>
+        <label>3. 二選一練習答對後跳題方式</label>
         <div class="btn-group" data-setting="advanceMode">
           <button type="button" class="opt-btn active" data-val="manual">手動按「➡️ 下一題」按鈕</button>
           <button type="button" class="opt-btn" data-val="auto4">停留 4 秒自動下一題</button>
@@ -639,12 +702,12 @@
       </div>
 
       <div class="setting-group">
-        <label>3. 6 張官方圖檔與短句讀白設定</label>
+        <label>4. 6 張官方圖檔與短句讀白設定</label>
         <div id="custom-cards-manager"></div>
       </div>
 
       <div class="setting-group">
-        <label>4. 勾選今堂「純圖片二選一」練習題目（至少保留 1 題）</label>
+        <label>5. 勾選今堂「純圖片二選一」練習題目（至少保留 1 題）</label>
         <div class="quiz-toggle-grid" id="quiz-bank-toggles"></div>
       </div>
 
@@ -770,7 +833,7 @@
       }
     ];
 
-    const STORAGE_KEY = 'flag_official_6pngs_v9';
+    const STORAGE_KEY = 'flag_official_6pngs_v10';
     let state = {
       settings: {
         theme: 'dark',
@@ -1196,6 +1259,193 @@
       speakCantonese(runtime.lastSpokenText);
     });
 
+    // === 一鍵匯出可列印 PowerPoint (.pptx) 功能 ===
+    function loadImageAsDataUrl(src) {
+      return new Promise((resolve) => {
+        if (src.startsWith('data:')) {
+          const img = new Image();
+          img.onload = () => resolve({ dataUrl: src, w: img.naturalWidth || 4, h: img.naturalHeight || 3 });
+          img.onerror = () => resolve(null);
+          img.src = src;
+          return;
+        }
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+          try {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.naturalWidth || 800;
+            canvas.height = img.naturalHeight || 600;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            resolve({ dataUrl: canvas.toDataURL('image/png'), w: canvas.width, h: canvas.height });
+          } catch (e) {
+            resolve(null);
+          }
+        };
+        img.onerror = () => resolve(null);
+        img.src = src;
+      });
+    }
+
+    function fitContainRect(imgW, imgH, boxX, boxY, boxW, boxH) {
+      const ratio = Math.min(boxW / imgW, boxH / imgH);
+      const w = imgW * ratio;
+      const h = imgH * ratio;
+      return {
+        x: boxX + (boxW - w) / 2,
+        y: boxY + (boxH - h) / 2,
+        w,
+        h
+      };
+    }
+
+    async function exportToPowerPoint(includeQuizSlides) {
+      const statusEl = document.getElementById('export-ppt-status');
+      const btnCards = document.getElementById('export-ppt-cards-btn');
+      const btnFull = document.getElementById('export-ppt-full-btn');
+
+      if (typeof window.PptxGenJS === 'undefined') {
+        statusEl.style.color = '#FF453A';
+        statusEl.textContent = '⚠️ 簡報工具載入失敗，請檢查網絡連線後再試。';
+        return;
+      }
+
+      btnCards.disabled = true;
+      btnFull.disabled = true;
+      statusEl.style.color = '#FFFF00';
+      statusEl.textContent = '⏳ 正在整理高畫質圖片並製作簡報，請稍候...';
+
+      try {
+        const imageMap = {};
+        for (const item of DEFAULT_ITEMS) {
+          imageMap[item.id] = await loadImageAsDataUrl(getItemImageSrc(item.id));
+        }
+
+        const pptx = new window.PptxGenJS();
+        pptx.layout = 'LAYOUT_WIDE'; // 13.333 x 7.5 inches (16:9 寬螢幕，方便投影及 A4 橫向列印)
+        pptx.title = '認識國家與香港・官方標準教學圖卡';
+
+        // 1. 生成 6 張特大教學圖卡投影片
+        DEFAULT_ITEMS.forEach((item, index) => {
+          const slide = pptx.addSlide();
+          slide.background = { color: 'FFFFFF' };
+
+          // 頂部標題框
+          slide.addShape(pptx.ShapeType.rect, {
+            x: 0.6, y: 0.35, w: 12.13, h: 0.95,
+            fill: { color: 'F2F6FC' },
+            line: { color: '002868', width: 3 }
+          });
+
+          const nameText = getItemSpeech(item.id, 'name').replace(/。$/, '');
+          slide.addText(`${index + 1}. ${nameText}`, {
+            x: 0.7, y: 0.35, w: 11.93, h: 0.95,
+            fontSize: 34, bold: true, color: '002868',
+            align: 'center', valign: 'middle',
+            fontFace: 'Microsoft JhengHei'
+          });
+
+          // 中央圖片高對比外框
+          const boxX = 1.6, boxY = 1.5, boxW = 10.13, boxH = 4.45;
+          slide.addShape(pptx.ShapeType.rect, {
+            x: boxX, y: boxY, w: boxW, h: boxH,
+            fill: { color: 'FFFFFF' },
+            line: { color: '002868', width: 4 }
+          });
+
+          const imgInfo = imageMap[item.id];
+          if (imgInfo && imgInfo.dataUrl) {
+            const rect = fitContainRect(imgInfo.w, imgInfo.h, boxX + 0.18, boxY + 0.18, boxW - 0.36, boxH - 0.36);
+            slide.addImage({
+              data: imgInfo.dataUrl,
+              x: rect.x, y: rect.y, w: rect.w, h: rect.h
+            });
+          }
+
+          // 底部特徵短句框
+          slide.addShape(pptx.ShapeType.rect, {
+            x: 0.6, y: 6.15, w: 12.13, h: 0.95,
+            fill: { color: 'FFFDF0' },
+            line: { color: 'D97706', width: 3 }
+          });
+
+          const featureText = getItemSpeech(item.id, 'feature');
+          slide.addText(`特徵：${featureText}`, {
+            x: 0.7, y: 6.15, w: 11.93, h: 0.95,
+            fontSize: 28, bold: true, color: '111111',
+            align: 'center', valign: 'middle',
+            fontFace: 'Microsoft JhengHei'
+          });
+        });
+
+        // 2. 若選擇連二選一工作紙一齊匯出
+        if (includeQuizSlides) {
+          const activeQuizzes = getActiveQuizList();
+          activeQuizzes.forEach((q, qIdx) => {
+            const slide = pptx.addSlide();
+            slide.background = { color: 'FFFFFF' };
+
+            slide.addShape(pptx.ShapeType.rect, {
+              x: 0.6, y: 0.35, w: 12.13, h: 0.95,
+              fill: { color: 'F2F6FC' },
+              line: { color: '002868', width: 3 }
+            });
+
+            slide.addText(`練習 ${qIdx + 1}：${q.question}`, {
+              x: 0.7, y: 0.35, w: 11.93, h: 0.95,
+              fontSize: 32, bold: true, color: '002868',
+              align: 'center', valign: 'middle',
+              fontFace: 'Microsoft JhengHei'
+            });
+
+            // 左右兩格對比選項（單數題正確在左、雙數題正確在右）
+            const leftId = (qIdx % 2 === 0) ? q.correctId : q.wrongId;
+            const rightId = (qIdx % 2 === 0) ? q.wrongId : q.correctId;
+
+            [
+              { id: leftId, x: 0.7 },
+              { id: rightId, x: 7.03 }
+            ].forEach(slot => {
+              const cardW = 5.6, cardH = 5.2, cardY = 1.65;
+              slide.addShape(pptx.ShapeType.rect, {
+                x: slot.x, y: cardY, w: cardW, h: cardH,
+                fill: { color: 'FFFFFF' },
+                line: { color: '002868', width: 4 }
+              });
+
+              const info = imageMap[slot.id];
+              if (info && info.dataUrl) {
+                const rect = fitContainRect(info.w, info.h, slot.x + 0.2, cardY + 0.2, cardW - 0.4, cardH - 0.4);
+                slide.addImage({
+                  data: info.dataUrl,
+                  x: rect.x, y: rect.y, w: rect.w, h: rect.h
+                });
+              }
+            });
+          });
+        }
+
+        const fileName = includeQuizSlides
+          ? '認識國家與香港_教學圖卡及練習工作紙.pptx'
+          : '認識國家與香港_6張教學圖卡.pptx';
+
+        await pptx.writeFile({ fileName });
+        statusEl.style.color = '#00FF66';
+        statusEl.textContent = `✅ 已成功匯出「${fileName}」！可直接開啟或列印。`;
+      } catch (err) {
+        statusEl.style.color = '#FF453A';
+        statusEl.textContent = '⚠️ 匯出時發生錯誤，請重新整理網頁後再試。';
+      } finally {
+        btnCards.disabled = false;
+        btnFull.disabled = false;
+      }
+    }
+
+    document.getElementById('export-ppt-cards-btn').addEventListener('click', () => exportToPowerPoint(false));
+    document.getElementById('export-ppt-full-btn').addEventListener('click', () => exportToPowerPoint(true));
+
+    // === 教師設定面板管理 ===
     const teacherPanel = document.getElementById('teacher-panel');
     const customCardsManager = document.getElementById('custom-cards-manager');
     const quizBankToggles = document.getElementById('quiz-bank-toggles');
