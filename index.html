@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>認識國旗、區旗、國徽、區徽・官方標準點讀書</title>
+  <title>認識國家與香港・官方標準互動點讀書</title>
   <style>
     :root {
       --bg-color: #090C12;
@@ -149,7 +149,7 @@
       border-radius: 22px;
       padding: 10px 20px;
       text-align: center;
-      font-size: clamp(1.35rem, 2.7vw, 2.2rem);
+      font-size: clamp(1.3rem, 2.6vw, 2.15rem);
       font-weight: 900;
       color: var(--text-color);
       line-height: 1.3;
@@ -171,17 +171,17 @@
       gap: 12px;
     }
 
-    /* 特大官方圖片容器 */
+    /* 特大圖片容器 */
     #single-image-stage {
       position: relative;
       width: 100%;
-      max-width: 820px;
+      max-width: 840px;
       flex: 1;
       min-height: 0;
       background-color: #131B2E;
       border: 8px solid #00E5FF;
       border-radius: 30px;
-      padding: 18px;
+      padding: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -216,7 +216,7 @@
       max-height: 100%;
       object-fit: contain;
       display: block;
-      border-radius: 6px;
+      border-radius: 8px;
     }
 
     /* 低視能特徵重點聚光提示圈 */
@@ -240,14 +240,14 @@
       to { transform: scale(1.06); }
     }
 
-    /* 底部控制列：上一張 | 講名稱 | 講特徵 | 下一張 */
+    /* 底部控制列：上一張 | 講名稱 | 講特徵 | (國歌前奏) | 下一張 */
     #single-controls-bar {
       width: 100%;
-      max-width: 1120px;
+      max-width: 1180px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
+      gap: 12px;
       flex-shrink: 0;
     }
 
@@ -256,8 +256,8 @@
       color: var(--subtext-color);
       border: 5px solid #00E5FF;
       border-radius: 24px;
-      padding: 14px 22px;
-      font-size: clamp(1.15rem, 2.2vw, 1.65rem);
+      padding: 14px 20px;
+      font-size: clamp(1.1rem, 2.1vw, 1.55rem);
       font-weight: 900;
       cursor: pointer;
       white-space: nowrap;
@@ -272,20 +272,21 @@
       flex: 1;
       display: flex;
       justify-content: center;
-      gap: clamp(14px, 3vw, 32px);
+      gap: clamp(10px, 2.2vw, 24px);
     }
 
     .big-step-btn {
       flex: 1;
-      max-width: 280px;
+      max-width: 260px;
       border: 5px solid #000000;
       border-radius: 26px;
-      padding: 14px 18px;
-      font-size: clamp(1.25rem, 2.5vw, 1.85rem);
+      padding: 14px 14px;
+      font-size: clamp(1.15rem, 2.3vw, 1.75rem);
       font-weight: 900;
       cursor: pointer;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
       transition: transform 0.12s ease;
+      white-space: nowrap;
     }
 
     .big-step-btn:active {
@@ -300,6 +301,12 @@
     #btn-speak-feature {
       background: #00FF66;
       color: #000000;
+    }
+
+    #btn-play-anthem {
+      background: #FF9F0A;
+      color: #000000;
+      display: none;
     }
 
     /* =========================================
@@ -317,7 +324,6 @@
       gap: 18px;
     }
 
-    /* 左右大幅分開的兩張純圖片選項 */
     #image-choices-row {
       width: 100%;
       flex: 1;
@@ -374,13 +380,13 @@
       object-fit: contain;
       display: block;
       pointer-events: none;
+      border-radius: 8px;
     }
 
     .img-choice-card:active {
       transform: scale(0.96);
     }
 
-    /* 讀出該圖片名稱時高亮 */
     .img-choice-card.reading-now {
       border-color: #FFFFFF !important;
       background-color: #2B3348 !important;
@@ -392,7 +398,6 @@
       background-color: #FEF9C3 !important;
     }
 
-    /* 答對綠光發亮 */
     .img-choice-card.correct-selected {
       border-color: #00FF66 !important;
       background-color: #163826 !important;
@@ -459,7 +464,7 @@
       background-color: var(--panel-bg);
       color: #FFFFFF;
       width: 100%;
-      max-width: 880px;
+      max-width: 900px;
       max-height: 90dvh;
       overflow-y: auto;
       border-radius: 22px;
@@ -517,7 +522,6 @@
       border-color: #FFFF00;
     }
 
-    /* 4 張官方標誌自訂編輯卡片 */
     .custom-card-editor {
       background: #222632;
       border: 1px solid #444854;
@@ -609,7 +613,6 @@
       cursor: pointer;
     }
 
-    /* 選擇題組合勾選區 */
     .quiz-toggle-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -697,6 +700,7 @@
         <div class="step-action-group">
           <button type="button" class="big-step-btn" id="btn-speak-name">🔊 講名稱</button>
           <button type="button" class="big-step-btn" id="btn-speak-feature">🔍 講特徵</button>
+          <button type="button" class="big-step-btn" id="btn-play-anthem">🎺 聽國歌</button>
         </div>
         <button type="button" class="nav-arrow-btn" id="next-card-btn">➡️ 下一張</button>
       </div>
@@ -737,7 +741,7 @@
       </div>
 
       <div class="setting-group">
-        <label>3. 4 張官方標誌圖片與短句讀白（預設為官方標準圖，可隨時更換圖片或修改短句）</label>
+        <label>3. 6 張大圖卡片與短句讀白（可隨時從 iPad 相簿更換圖片或修改短句）</label>
         <div id="custom-cards-manager"></div>
       </div>
 
@@ -751,51 +755,156 @@
   </div>
 
   <script>
-    // === 官方標準矢量圖檔（Wikimedia Commons 官方標準 SVG，嚴格符合法定比例與圖案細節） ===
+    // === 預設標準圖檔（採用直接穩定渲染之 PNG 官方標準縮圖＋高清矢量圖，教師亦可隨時更換） ===
     const OFFICIAL_DEFAULT_IMAGES = {
-      national_flag: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_the_People%27s_Republic_of_China.svg',
-      hk_flag: 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Flag_of_Hong_Kong.svg',
-      national_emblem: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/National_Emblem_of_the_People%27s_Republic_of_China_%282%29.svg',
-      hk_emblem: 'https://upload.wikimedia.org/wikipedia/commons/9/90/Regional_Emblem_of_Hong_Kong.svg'
+      national_flag: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/960px-Flag_of_the_People%27s_Republic_of_China.svg.png',
+      hk_flag: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Flag_of_Hong_Kong.svg/960px-Flag_of_Hong_Kong.svg.png',
+      national_emblem: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/National_Emblem_of_the_People%27s_Republic_of_China_%282%29.svg/800px-National_Emblem_of_the_People%27s_Republic_of_China_%282%29.svg.png',
+      // 修正：採用 Wikimedia 官方標準香港區徽高解析度 PNG 縮圖，確保 100% 穩定顯示
+      hk_emblem: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Regional_Emblem_of_Hong_Kong.svg/800px-Regional_Emblem_of_Hong_Kong.svg.png',
+      // 國家的首都：北京（天安門廣場高清插畫，教師可於設定隨時更換成實景相片）
+      beijing_tiananmen: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+        <svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg">
+          <rect width="800" height="310" fill="#38BDF8"/>
+          <rect y="310" width="800" height="170" fill="#CBD5E1"/>
+          <line x1="0" y1="310" x2="800" y2="310" stroke="#000000" stroke-width="5"/>
+          <!-- 金色屋頂雙重簷城樓 -->
+          <polygon points="180,145 400,72 620,145" fill="#FACC15" stroke="#000000" stroke-width="5"/>
+          <rect x="215" y="145" width="370" height="34" fill="#DC2626" stroke="#000000" stroke-width="5"/>
+          <polygon points="150,192 650,192 625,172 175,172" fill="#FACC15" stroke="#000000" stroke-width="5"/>
+          <!-- 紅色城樓主體與五個拱門 -->
+          <rect x="145" y="192" width="510" height="118" fill="#DC2626" stroke="#000000" stroke-width="5"/>
+          <path d="M376,310 L376,262 A24,24 0 0,1 424,262 L424,310 Z" fill="#1E293B" stroke="#FACC15" stroke-width="4"/>
+          <path d="M296,310 L296,268 A20,20 0 0,1 336,268 L336,310 Z" fill="#1E293B" stroke="#FACC15" stroke-width="4"/>
+          <path d="M464,310 L464,268 A20,20 0 0,1 504,268 L504,310 Z" fill="#1E293B" stroke="#FACC15" stroke-width="4"/>
+          <path d="M220,310 L220,272 A18,18 0 0,1 256,272 L256,310 Z" fill="#1E293B" stroke="#FACC15" stroke-width="4"/>
+          <path d="M544,310 L544,272 A18,18 0 0,1 580,272 L580,310 Z" fill="#1E293B" stroke="#FACC15" stroke-width="4"/>
+          <!-- 中央掛像框示意 -->
+          <rect x="382" y="202" width="36" height="44" rx="4" fill="#FDE68A" stroke="#000000" stroke-width="3"/>
+          <!-- 金水橋白色漢白玉欄杆 -->
+          <rect x="130" y="310" width="540" height="18" fill="#FFFFFF" stroke="#000000" stroke-width="4"/>
+          <!-- 廣場前方國旗桿 -->
+          <rect x="108" y="110" width="8" height="260" fill="#F8FAFC" stroke="#000000" stroke-width="3"/>
+          <rect x="116" y="114" width="76" height="48" fill="#DE2910" stroke="#000000" stroke-width="3"/>
+          <polygon points="130,124 133,132 141,132 135,137 137,145 130,140 123,145 125,137 119,132 127,132" fill="#FFDE00"/>
+        </svg>
+      `),
+      // 奏唱國歌時的正確禮儀：肅立、手放兩邊、面向國旗、唱國歌
+      anthem_etiquette_good: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+        <svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg">
+          <rect width="800" height="345" fill="#0284C7"/>
+          <rect y="345" width="800" height="135" fill="#22C55E"/>
+          <line x1="0" y1="345" x2="800" y2="345" stroke="#000000" stroke-width="6"/>
+          <!-- 左側升起的國旗 -->
+          <rect x="175" y="45" width="12" height="305" fill="#F1F5F9" stroke="#000000" stroke-width="4"/>
+          <circle cx="181" cy="38" r="11" fill="#FACC15" stroke="#000000" stroke-width="3"/>
+          <rect x="187" y="52" width="150" height="98" fill="#DE2910" stroke="#000000" stroke-width="4"/>
+          <polygon points="214,68 219,82 234,82 222,90 226,104 214,95 202,104 206,90 194,82 209,82" fill="#FFDE00"/>
+          <circle cx="248" cy="65" r="4" fill="#FFDE00"/><circle cx="258" cy="76" r="4" fill="#FFDE00"/>
+          <circle cx="258" cy="91" r="4" fill="#FFDE00"/><circle cx="248" cy="102" r="4" fill="#FFDE00"/>
+          <!-- 右側小朋友：企定肅立、雙手垂直貼緊身體兩邊、面向國旗唱歌 -->
+          <g transform="translate(520, 175)">
+            <!-- 雙腳併攏站直 -->
+            <rect x="-24" y="110" width="20" height="65" rx="8" fill="#1E293B" stroke="#000000" stroke-width="4"/>
+            <rect x="4" y="110" width="20" height="65" rx="8" fill="#1E293B" stroke="#000000" stroke-width="4"/>
+            <!-- 身體挺直 -->
+            <rect x="-36" y="42" width="72" height="76" rx="18" fill="#FACC15" stroke="#000000" stroke-width="5"/>
+            <!-- 雙手垂直貼緊身體兩邊 -->
+            <line x1="-44" y1="50" x2="-44" y2="115" stroke="#FDE68A" stroke-width="16" stroke-linecap="round"/>
+            <line x1="-44" y1="50" x2="-44" y2="115" stroke="#000000" stroke-width="4" stroke-linecap="round"/>
+            <line x1="44" y1="50" x2="44" y2="115" stroke="#FDE68A" stroke-width="16" stroke-linecap="round"/>
+            <line x1="44" y1="50" x2="44" y2="115" stroke="#000000" stroke-width="4" stroke-linecap="round"/>
+            <!-- 頭部面向左邊國旗 -->
+            <circle cx="0" cy="0" r="46" fill="#FDE68A" stroke="#000000" stroke-width="5"/>
+            <path d="M-46 -6 Q-40 -50 0 -50 Q40 -50 46 -6 Z" fill="#1E293B" stroke="#000000" stroke-width="4"/>
+            <!-- 眼神專注望向左方國旗 -->
+            <circle cx="-22" cy="0" r="6" fill="#000000"/>
+            <circle cx="2" cy="0" r="6" fill="#000000"/>
+            <!-- 張口唱國歌 -->
+            <ellipse cx="-10" cy="20" rx="9" ry="11" fill="#EF4444" stroke="#000000" stroke-width="4"/>
+          </g>
+          <!-- 音樂符號表示正在唱國歌 -->
+          <circle cx="415" cy="145" r="10" fill="#FFFF00" stroke="#000000" stroke-width="3"/>
+          <path d="M423 145 L423 105 L445 98" stroke="#FFFF00" stroke-width="6" stroke-linecap="round" fill="none"/>
+        </svg>
+      `),
+      // 錯誤行為對比圖（僅供二選一練習對比：周圍走動傾偈唔望國旗）
+      anthem_etiquette_bad: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+        <svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg">
+          <rect width="800" height="345" fill="#94A3B8"/>
+          <rect y="345" width="800" height="135" fill="#64748B"/>
+          <line x1="0" y1="345" x2="800" y2="345" stroke="#000000" stroke-width="6"/>
+          <!-- 左側國旗被忽略 -->
+          <rect x="135" y="45" width="12" height="305" fill="#F1F5F9" stroke="#000000" stroke-width="4"/>
+          <rect x="147" y="52" width="130" height="86" fill="#DE2910" stroke="#000000" stroke-width="4"/>
+          <!-- 右側小朋友背向國旗、舉手亂跑傾偈 -->
+          <g transform="translate(530, 185) rotate(14)">
+            <rect x="-34" y="40" width="68" height="72" rx="18" fill="#F97316" stroke="#000000" stroke-width="5"/>
+            <line x1="-36" y1="50" x2="-78" y2="15" stroke="#FDE68A" stroke-width="16" stroke-linecap="round"/>
+            <line x1="36" y1="50" x2="78" y2="15" stroke="#FDE68A" stroke-width="16" stroke-linecap="round"/>
+            <circle cx="0" cy="0" r="44" fill="#FDE68A" stroke="#000000" stroke-width="5"/>
+            <path d="M-44 -6 Q-38 -48 0 -48 Q38 -48 44 -6 Z" fill="#1E293B"/>
+            <circle cx="10" cy="0" r="6" fill="#000000"/>
+            <circle cx="28" cy="0" r="6" fill="#000000"/>
+            <path d="M8 18 Q18 30 28 18" stroke="#000000" stroke-width="4" fill="none"/>
+          </g>
+        </svg>
+      `)
     };
 
-    // === 4 個核心官方標誌設定（含重點聚光位置與短句讀白） ===
+    // === 6 張大圖卡片設定（短句讀白＋重點聚光位置） ===
     const DEFAULT_ITEMS = [
       {
         id: 'national_flag',
         label: '中國國旗',
         nameSpeech: '中國國旗。',
         featureSpeech: '紅色底，左上角有五粒黃星。',
-        // 重點聚光位置（左上角五顆黃星區域）
-        spotlight: { top: '6%', left: '4%', width: '44%', height: '52%' }
+        spotlight: { top: '6%', left: '4%', width: '44%', height: '52%' },
+        hasAnthemBtn: false
       },
       {
         id: 'hk_flag',
         label: '香港區旗',
         nameSpeech: '香港區旗。',
         featureSpeech: '紅色底，中間有白色紫荊花。',
-        // 重點聚光位置（中央白色洋紫荊花區域）
-        spotlight: { top: '18%', left: '28%', width: '44%', height: '64%' }
+        spotlight: { top: '18%', left: '28%', width: '44%', height: '64%' },
+        hasAnthemBtn: false
       },
       {
         id: 'national_emblem',
         label: '中國國徽',
         nameSpeech: '中國國徽。',
         featureSpeech: '圓形，有天安門同五粒星。',
-        // 重點聚光位置（整體圓形徽章）
-        spotlight: { top: '5%', left: '5%', width: '90%', height: '90%' }
+        spotlight: { top: '5%', left: '5%', width: '90%', height: '90%' },
+        hasAnthemBtn: false
       },
       {
         id: 'hk_emblem',
         label: '香港區徽',
         nameSpeech: '香港區徽。',
         featureSpeech: '圓形，中間有白色紫荊花。',
-        // 重點聚光位置（中央白色洋紫荊花區域）
-        spotlight: { top: '20%', left: '20%', width: '60%', height: '60%' }
+        spotlight: { top: '18%', left: '18%', width: '64%', height: '64%' },
+        hasAnthemBtn: false
+      },
+      {
+        id: 'beijing_tiananmen',
+        label: '首都：北京',
+        nameSpeech: '國家的首都，北京。',
+        featureSpeech: '北京有天安門廣場。',
+        spotlight: { top: '14%', left: '18%', width: '64%', height: '56%' },
+        hasAnthemBtn: false
+      },
+      {
+        id: 'anthem_etiquette_good',
+        label: '奏唱國歌禮儀',
+        nameSpeech: '奏唱國歌的禮儀。',
+        featureSpeech: '肅立、手放兩邊、面向國旗、唱國歌。',
+        spotlight: { top: '24%', left: '52%', width: '28%', height: '66%' },
+        hasAnthemBtn: true
       }
     ];
 
-    // === 純圖片二選一題庫（全圖片選項，無文字干擾） ===
+    // === 純圖片二選一題庫（全圖片選項，零文字干擾） ===
     const QUIZ_BANK = [
       {
         id: 'q1',
@@ -835,25 +944,27 @@
       },
       {
         id: 'q5',
-        title: '題 5：邊幅係中國國旗？（國旗 vs 國徽）',
-        question: '邊幅係中國國旗？',
-        correctId: 'national_flag',
-        wrongId: 'national_emblem',
-        praise: '答啱啦！呢幅係中國國旗。',
-        retry: '國旗係長方形嘅，再揀一次！'
+        title: '題 5：邊幅係國家的首都北京（天安門廣場）？',
+        question: '邊幅係國家的首都北京？',
+        correctId: 'beijing_tiananmen',
+        wrongId: 'hk_flag',
+        praise: '答啱啦！北京有天安門廣場。',
+        retry: '再睇下，北京有紅色嘅天安門城樓。'
       },
       {
         id: 'q6',
-        title: '題 6：邊個係香港區徽？（區徽 vs 區旗）',
-        question: '邊個係香港區徽？',
-        correctId: 'hk_emblem',
-        wrongId: 'hk_flag',
-        praise: '答啱啦！圓形嗰個係香港區徽。',
-        retry: '區徽係圓形嘅，再揀一次！'
+        title: '題 6：奏唱國歌時，邊個姿勢先至正確？',
+        question: '奏唱國歌時，邊個姿勢正確？',
+        correctId: 'anthem_etiquette_good',
+        wrongId: 'anthem_etiquette_bad',
+        correctSpokenOverride: '肅立、手放兩邊、面向國旗。',
+        wrongSpokenOverride: '背向國旗周圍走。',
+        praise: '答啱啦！肅立、手放兩邊、面向國旗唱國歌。',
+        retry: '唱國歌要手放兩邊面向國旗，再揀！'
       }
     ];
 
-    const STORAGE_KEY = 'flag_single_zoom_book_v3';
+    const STORAGE_KEY = 'flag_beijing_etiquette_v4';
     let state = {
       settings: {
         theme: 'dark',
@@ -886,13 +997,14 @@
 
     function getItemSpeech(id, type) {
       const def = DEFAULT_ITEMS.find(i => i.id === id);
+      if (!def) return '';
       const custom = state.customTexts[id] || {};
       if (type === 'name') return custom.nameSpeech || def.nameSpeech;
       return custom.featureSpeech || def.featureSpeech;
     }
 
     const runtime = {
-      mode: 'book', // 'book' | 'quiz'
+      mode: 'book',
       bookIndex: 0,
       lastSpokenText: '先撳講名稱，再撳講特徵。',
       quizIndex: 0,
@@ -906,12 +1018,13 @@
     const singleImageStage = document.getElementById('single-image-stage');
     const singleOfficialImg = document.getElementById('single-official-img');
     const featureSpotlight = document.getElementById('feature-spotlight');
+    const btnPlayAnthem = document.getElementById('btn-play-anthem');
     const quizView = document.getElementById('quiz-view');
     const imageChoicesRow = document.getElementById('image-choices-row');
     const nextQuestionBar = document.getElementById('next-question-bar');
     const nextQuestionBtn = document.getElementById('next-question-btn');
 
-    // === 音效引擎 ===
+    // === 音效與《義勇軍進行曲》前奏 ===
     let audioCtx = null;
 
     function initAudio() {
@@ -922,6 +1035,49 @@
         }
         if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
       } catch (e) {}
+    }
+
+    function playNationalAnthemIntro(onFinish) {
+      initAudio();
+      if (!audioCtx) {
+        if (onFinish) onFinish();
+        return;
+      }
+      try {
+        const notes = [
+          { freq: 392.00, time: 0.00, dur: 0.22 },
+          { freq: 523.25, time: 0.25, dur: 0.35 },
+          { freq: 659.25, time: 0.65, dur: 0.22 },
+          { freq: 783.99, time: 0.90, dur: 0.42 },
+          { freq: 659.25, time: 1.38, dur: 0.20 },
+          { freq: 523.25, time: 1.62, dur: 0.22 },
+          { freq: 783.99, time: 1.90, dur: 0.65 }
+        ];
+        notes.forEach(n => {
+          const start = audioCtx.currentTime + n.time;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(n.freq, start);
+
+          const filter = audioCtx.createBiquadFilter();
+          filter.type = 'lowpass';
+          filter.frequency.setValueAtTime(1600, start);
+
+          gain.gain.setValueAtTime(0.01, start);
+          gain.gain.linearRampToValueAtTime(0.18, start + 0.03);
+          gain.gain.exponentialRampToValueAtTime(0.001, start + n.dur);
+
+          osc.connect(filter);
+          filter.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(start);
+          osc.stop(start + n.dur + 0.02);
+        });
+        if (onFinish) setTimeout(onFinish, 2650);
+      } catch (e) {
+        if (onFinish) onFinish();
+      }
     }
 
     function playSuccessChime() {
@@ -1027,7 +1183,7 @@
       }, 50);
     }
 
-    // === 模式一：渲染一次一張特大官方圖 ===
+    // === 模式一：渲染一次一張特大圖 ===
     function renderSingleBookCard(autoSpeakName) {
       const item = DEFAULT_ITEMS[runtime.bookIndex];
       singleOfficialImg.src = getItemImageSrc(item.id);
@@ -1035,7 +1191,8 @@
       featureSpotlight.classList.remove('visible');
       singleImageStage.classList.remove('speaking-glow');
 
-      // 如果教師未更換自訂圖，套用預設重點聚光框位置
+      btnPlayAnthem.style.display = item.hasAnthemBtn ? 'inline-block' : 'none';
+
       if (!state.customImages[item.id]) {
         featureSpotlight.style.top = item.spotlight.top;
         featureSpotlight.style.left = item.spotlight.left;
@@ -1080,6 +1237,16 @@
       });
     }
 
+    btnPlayAnthem.addEventListener('click', () => {
+      initAudio();
+      try { window.speechSynthesis.cancel(); } catch (e) {}
+      singleImageStage.classList.add('speaking-glow');
+      captionBanner.textContent = '🎺 國歌響起！請肅立、手放兩邊、面向國旗！';
+      playNationalAnthemIntro(() => {
+        singleImageStage.classList.remove('speaking-glow');
+      });
+    });
+
     singleImageStage.addEventListener('click', triggerSpeakName);
     document.getElementById('btn-speak-name').addEventListener('click', triggerSpeakName);
     document.getElementById('btn-speak-feature').addEventListener('click', triggerSpeakFeature);
@@ -1096,7 +1263,7 @@
       renderSingleBookCard(true);
     });
 
-    // === 模式二：純圖片二選一選擇題（無文字選項） ===
+    // === 模式二：純圖片二選一選擇題 ===
     function getActiveQuizList() {
       const list = QUIZ_BANK.filter(q => state.enabledQuizzes.includes(q.id));
       return list.length > 0 ? list : QUIZ_BANK;
@@ -1120,8 +1287,16 @@
       captionBanner.textContent = `❓ 第 ${runtime.quizIndex + 1} / ${activeList.length} 題：${q.question}`;
 
       const pair = [
-        { imgId: q.correctId, isCorrect: true },
-        { imgId: q.wrongId, isCorrect: false }
+        {
+          imgId: q.correctId,
+          isCorrect: true,
+          spokenText: q.correctSpokenOverride || getItemSpeech(q.correctId, 'name')
+        },
+        {
+          imgId: q.wrongId,
+          isCorrect: false,
+          spokenText: q.wrongSpokenOverride || getItemSpeech(q.wrongId, 'name')
+        }
       ].sort(() => Math.random() - 0.5);
 
       const borderColors = ['#FFFF00', '#00E5FF'];
@@ -1148,11 +1323,9 @@
       imageChoicesRow.querySelectorAll('.img-choice-card').forEach(c => c.classList.remove('reading-now', 'gentle-shake'));
       cardEl.classList.add('reading-now');
 
-      // 先讀出學生所選圖片的名稱，讀完才揭曉對錯
-      const selectedNameSpeech = getItemSpeech(opt.imgId, 'name');
-      captionBanner.textContent = `🗣️ ${selectedNameSpeech}`;
+      captionBanner.textContent = `🗣️ ${opt.spokenText}`;
 
-      speakCantonese(selectedNameSpeech, () => {
+      speakCantonese(opt.spokenText, () => {
         cardEl.classList.remove('reading-now');
         if (opt.isCorrect) {
           runtime.isAnswered = true;
@@ -1274,11 +1447,10 @@
           <div class="editor-img-btns">
             <label class="upload-label-btn" for="${inputId}">📁 更換圖片</label>
             <input type="file" id="${inputId}" accept="image/*" style="display:none;" />
-            <button type="button" class="restore-default-btn" data-id="${item.id}">還原官方圖</button>
+            <button type="button" class="restore-default-btn" data-id="${item.id}">還原預設圖</button>
           </div>
         `;
 
-        // 監聽讀白文字修改
         box.querySelectorAll('.editor-input').forEach(inp => {
           inp.addEventListener('input', () => {
             const id = inp.dataset.id;
@@ -1289,7 +1461,6 @@
           });
         });
 
-        // 監聽圖片上傳
         const fileInput = box.querySelector(`#${inputId}`);
         fileInput.addEventListener('change', (e) => {
           const file = e.target.files && e.target.files[0];
@@ -1305,7 +1476,6 @@
           reader.readAsDataURL(file);
         });
 
-        // 還原官方標準圖
         box.querySelector('.restore-default-btn').addEventListener('click', () => {
           delete state.customImages[item.id];
           saveState();
@@ -1317,7 +1487,6 @@
         customCardsManager.appendChild(box);
       });
 
-      // 渲染題庫勾選清單
       quizBankToggles.innerHTML = '';
       QUIZ_BANK.forEach(q => {
         const btn = document.createElement('button');
