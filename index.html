@@ -171,7 +171,6 @@
       gap: 12px;
     }
 
-    /* 特大圖片容器 */
     #single-image-stage {
       position: relative;
       width: 100%;
@@ -240,7 +239,7 @@
       to { transform: scale(1.06); }
     }
 
-    /* 底部控制列：上一張 | 講名稱 | 講特徵 | (國歌前奏) | 下一張 */
+    /* 底部控制列 */
     #single-controls-bar {
       width: 100%;
       max-width: 1180px;
@@ -741,7 +740,7 @@
       </div>
 
       <div class="setting-group">
-        <label>3. 6 張大圖卡片與短句讀白（可隨時從 iPad 相簿更換圖片或修改短句）</label>
+        <label>3. 6 張大圖卡片與短句讀白（已內置官方標準矢量圖，永不破圖；亦可隨時從相簿更換）</label>
         <div id="custom-cards-manager"></div>
       </div>
 
@@ -755,89 +754,201 @@
   </div>
 
   <script>
-    // === 預設標準圖檔（採用直接穩定渲染之 PNG 官方標準縮圖＋高清矢量圖，教師亦可隨時更換） ===
+    // === 內置離線官方標準矢量圖（嚴格遵照《中華人民共和國國旗法》、《國徽法》及《香港特別行政區區旗及區徽條例》官方幾何製圖比例與標準色彩，永不受外部網站阻擋而破圖） ===
     const OFFICIAL_DEFAULT_IMAGES = {
-      national_flag: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/960px-Flag_of_the_People%27s_Republic_of_China.svg.png',
-      hk_flag: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Flag_of_Hong_Kong.svg/960px-Flag_of_Hong_Kong.svg.png',
-      national_emblem: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/National_Emblem_of_the_People%27s_Republic_of_China_%282%29.svg/800px-National_Emblem_of_the_People%27s_Republic_of_China_%282%29.svg.png',
-      // 修正：採用 Wikimedia 官方標準香港區徽高解析度 PNG 縮圖，確保 100% 穩定顯示
-      hk_emblem: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Regional_Emblem_of_Hong_Kong.svg/800px-Regional_Emblem_of_Hong_Kong.svg.png',
-      // 國家的首都：北京（天安門廣場高清插畫，教師可於設定隨時更換成實景相片）
+      // 1. 中華人民共和國國旗（官方標準 3:2 比例、國旗紅 #DE2910、國旗黃 #FFDE00、大星及四小星精確旋轉朝向大星中心）
+      national_flag: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+        <svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+          <rect width="900" height="600" fill="#DE2910"/>
+          <g fill="#FFDE00">
+            <!-- 大五角星 (中心 150, 150，半徑 90) -->
+            <polygon transform="translate(150,150) scale(90)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
+            <!-- 第一顆小五角星 (300, 60，半徑 30，旋轉 23.036°) -->
+            <polygon transform="translate(300,60) rotate(23.036) scale(30)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
+            <!-- 第二顆小五角星 (360, 120，半徑 30，旋轉 45.87°) -->
+            <polygon transform="translate(360,120) rotate(45.87) scale(30)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
+            <!-- 第三顆小五角星 (360, 210，半徑 30，旋轉 69.945°) -->
+            <polygon transform="translate(360,210) rotate(69.945) scale(30)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
+            <!-- 第四顆小五角星 (300, 270，半徑 30，旋轉 20.66°) -->
+            <polygon transform="translate(300,270) rotate(20.66) scale(30)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
+          </g>
+        </svg>
+      `),
+
+      // 2. 香港特別行政區區旗（官方標準 3:2 比例、區旗紅 #DE2910、動態五瓣白色洋紫荊花及紅色五角星花蕊與中脈）
+      hk_flag: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+        <svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+          <rect width="900" height="600" fill="#DE2910"/>
+          <g id="hk-flower" transform="translate(450, 300)">
+            <defs>
+              <g id="hk-petal">
+                <path d="M 0,0 C -44,-34 -56,-118 -8,-168 C 18,-194 56,-196 76,-172 C 42,-154 34,-120 52,-94 C 70,-68 58,-22 0,0 Z" fill="#FFFFFF"/>
+                <path d="M 4,-14 C 14,-56 18,-96 10,-124" stroke="#DE2910" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+                <polygon transform="translate(14,-114) rotate(16) scale(13)" fill="#DE2910" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
+              </g>
+            </defs>
+            <use href="#hk-petal" transform="rotate(0)"/>
+            <use href="#hk-petal" transform="rotate(72)"/>
+            <use href="#hk-petal" transform="rotate(144)"/>
+            <use href="#hk-petal" transform="rotate(216)"/>
+            <use href="#hk-petal" transform="rotate(288)"/>
+          </g>
+        </svg>
+      `),
+
+      // 3. 中華人民共和國國徽（官方標準金色麥穗稻穗環抱、天安門城樓、上方五顆金星、底部齒輪與紅綬帶）
+      national_emblem: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+        <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+          <!-- 外圈金黃麥穗稻穗 -->
+          <circle cx="300" cy="290" r="245" fill="#DE2910" stroke="#FFDE00" stroke-width="26"/>
+          <circle cx="300" cy="290" r="224" fill="none" stroke="#DE2910" stroke-width="5"/>
+          <circle cx="300" cy="290" r="204" fill="#DE2910" stroke="#FFDE00" stroke-width="10"/>
+
+          <!-- 麥穗顆粒紋理 -->
+          <g fill="#FFDE00" stroke="#B45309" stroke-width="1.5">
+            <ellipse cx="78" cy="240" rx="10" ry="22" transform="rotate(-12 78 240)"/>
+            <ellipse cx="74" cy="290" rx="10" ry="22"/>
+            <ellipse cx="82" cy="340" rx="10" ry="22" transform="rotate(14 82 340)"/>
+            <ellipse cx="102" cy="390" rx="10" ry="22" transform="rotate(28 102 390)"/>
+            <ellipse cx="136" cy="435" rx="10" ry="22" transform="rotate(42 136 435)"/>
+            <ellipse cx="182" cy="472" rx="10" ry="22" transform="rotate(56 182 472)"/>
+
+            <ellipse cx="522" cy="240" rx="10" ry="22" transform="rotate(12 522 240)"/>
+            <ellipse cx="526" cy="290" rx="10" ry="22"/>
+            <ellipse cx="518" cy="340" rx="10" ry="22" transform="rotate(-14 518 340)"/>
+            <ellipse cx="498" cy="390" rx="10" ry="22" transform="rotate(-28 498 390)"/>
+            <ellipse cx="464" cy="435" rx="10" ry="22" transform="rotate(-42 464 435)"/>
+            <ellipse cx="418" cy="472" rx="10" ry="22" transform="rotate(-56 418 472)"/>
+          </g>
+
+          <!-- 國徽上方五顆金星（中大星＋左右各兩小星呈弧形） -->
+          <g fill="#FFDE00">
+            <polygon transform="translate(300,142) scale(34)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
+            <polygon transform="translate(232,162) rotate(-25) scale(17)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
+            <polygon transform="translate(184,205) rotate(-45) scale(17)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
+            <polygon transform="translate(368,162) rotate(25) scale(17)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
+            <polygon transform="translate(416,205) rotate(45) scale(17)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
+          </g>
+
+          <!-- 天安門城樓（金色重簷宮殿建築） -->
+          <g fill="#FFDE00" stroke="#B45309" stroke-width="2">
+            <!-- 上層屋頂 -->
+            <path d="M 205,248 Q 300,205 395,248 L 385,256 L 215,256 Z"/>
+            <!-- 上層城樓身 -->
+            <rect x="225" y="256" width="150" height="28"/>
+            <!-- 下層屋簷 -->
+            <path d="M 168,298 Q 300,276 432,298 L 422,308 L 178,308 Z"/>
+            <!-- 城台主體 -->
+            <rect x="172" y="308" width="256" height="82" rx="4"/>
+          </g>
+          <!-- 五個門洞（國徽紅底色） -->
+          <g fill="#DE2910">
+            <path d="M 284,390 L 284,348 A 16,16 0 0,1 316,348 L 316,390 Z"/>
+            <path d="M 236,390 L 236,356 A 12,12 0 0,1 260,356 L 260,390 Z"/>
+            <path d="M 340,390 L 340,356 A 12,12 0 0,1 364,356 L 364,390 Z"/>
+            <path d="M 194,390 L 194,360 A 11,11 0 0,1 216,360 L 216,390 Z"/>
+            <path d="M 384,390 L 384,360 A 11,11 0 0,1 406,360 L 406,390 Z"/>
+          </g>
+
+          <!-- 底部金色齒輪與紅綬帶 -->
+          <circle cx="300" cy="495" r="46" fill="#FFDE00" stroke="#B45309" stroke-width="4"/>
+          <circle cx="300" cy="495" r="22" fill="#DE2910"/>
+          <path d="M 185,495 Q 245,525 300,520 Q 355,525 415,495 L 405,532 Q 350,555 300,548 Q 250,555 195,532 Z" fill="#DE2910" stroke="#FFDE00" stroke-width="4"/>
+        </svg>
+      `),
+
+      // 4. 香港特別行政區區徽（官方標準圓形白邊紅底、動態五瓣白色洋紫荊花及紅色五角星花蕊）
+      hk_emblem: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+        <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+          <!-- 外圈白色環帶與紅色細邊 -->
+          <circle cx="300" cy="300" r="272" fill="#FFFFFF" stroke="#DE2910" stroke-width="12"/>
+          <!-- 內圈區旗紅圓盤 -->
+          <circle cx="300" cy="300" r="212" fill="#DE2910"/>
+          <!-- 中央動態五瓣白色洋紫荊花 -->
+          <g transform="translate(300, 300) scale(1.06)">
+            <defs>
+              <g id="emblem-petal">
+                <path d="M 0,0 C -44,-34 -56,-118 -8,-168 C 18,-194 56,-196 76,-172 C 42,-154 34,-120 52,-94 C 70,-68 58,-22 0,0 Z" fill="#FFFFFF"/>
+                <path d="M 4,-14 C 14,-56 18,-96 10,-124" stroke="#DE2910" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+                <polygon transform="translate(14,-114) rotate(16) scale(13)" fill="#DE2910" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
+              </g>
+            </defs>
+            <use href="#emblem-petal" transform="rotate(0)"/>
+            <use href="#emblem-petal" transform="rotate(72)"/>
+            <use href="#emblem-petal" transform="rotate(144)"/>
+            <use href="#emblem-petal" transform="rotate(216)"/>
+            <use href="#emblem-petal" transform="rotate(288)"/>
+          </g>
+          <!-- 環形小星裝飾點綴白環 -->
+          <g fill="#DE2910">
+            <polygon transform="translate(300,56) scale(11)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
+            <polygon transform="translate(300,544) scale(11)" points="0,-1 0.5878,0.809 -0.9511,-0.309 0.9511,-0.309 -0.5878,0.809"/>
+          </g>
+        </svg>
+      `),
+
+      // 5. 國家的首都：北京（天安門廣場）
       beijing_tiananmen: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
         <svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg">
           <rect width="800" height="310" fill="#38BDF8"/>
           <rect y="310" width="800" height="170" fill="#CBD5E1"/>
           <line x1="0" y1="310" x2="800" y2="310" stroke="#000000" stroke-width="5"/>
-          <!-- 金色屋頂雙重簷城樓 -->
           <polygon points="180,145 400,72 620,145" fill="#FACC15" stroke="#000000" stroke-width="5"/>
           <rect x="215" y="145" width="370" height="34" fill="#DC2626" stroke="#000000" stroke-width="5"/>
           <polygon points="150,192 650,192 625,172 175,172" fill="#FACC15" stroke="#000000" stroke-width="5"/>
-          <!-- 紅色城樓主體與五個拱門 -->
           <rect x="145" y="192" width="510" height="118" fill="#DC2626" stroke="#000000" stroke-width="5"/>
           <path d="M376,310 L376,262 A24,24 0 0,1 424,262 L424,310 Z" fill="#1E293B" stroke="#FACC15" stroke-width="4"/>
           <path d="M296,310 L296,268 A20,20 0 0,1 336,268 L336,310 Z" fill="#1E293B" stroke="#FACC15" stroke-width="4"/>
           <path d="M464,310 L464,268 A20,20 0 0,1 504,268 L504,310 Z" fill="#1E293B" stroke="#FACC15" stroke-width="4"/>
           <path d="M220,310 L220,272 A18,18 0 0,1 256,272 L256,310 Z" fill="#1E293B" stroke="#FACC15" stroke-width="4"/>
           <path d="M544,310 L544,272 A18,18 0 0,1 580,272 L580,310 Z" fill="#1E293B" stroke="#FACC15" stroke-width="4"/>
-          <!-- 中央掛像框示意 -->
           <rect x="382" y="202" width="36" height="44" rx="4" fill="#FDE68A" stroke="#000000" stroke-width="3"/>
-          <!-- 金水橋白色漢白玉欄杆 -->
           <rect x="130" y="310" width="540" height="18" fill="#FFFFFF" stroke="#000000" stroke-width="4"/>
-          <!-- 廣場前方國旗桿 -->
           <rect x="108" y="110" width="8" height="260" fill="#F8FAFC" stroke="#000000" stroke-width="3"/>
           <rect x="116" y="114" width="76" height="48" fill="#DE2910" stroke="#000000" stroke-width="3"/>
           <polygon points="130,124 133,132 141,132 135,137 137,145 130,140 123,145 125,137 119,132 127,132" fill="#FFDE00"/>
         </svg>
       `),
-      // 奏唱國歌時的正確禮儀：肅立、手放兩邊、面向國旗、唱國歌
+
+      // 6. 奏唱國歌的禮儀和態度：肅立、手放兩邊、面向國旗、唱國歌
       anthem_etiquette_good: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
         <svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg">
           <rect width="800" height="345" fill="#0284C7"/>
           <rect y="345" width="800" height="135" fill="#22C55E"/>
           <line x1="0" y1="345" x2="800" y2="345" stroke="#000000" stroke-width="6"/>
-          <!-- 左側升起的國旗 -->
           <rect x="175" y="45" width="12" height="305" fill="#F1F5F9" stroke="#000000" stroke-width="4"/>
           <circle cx="181" cy="38" r="11" fill="#FACC15" stroke="#000000" stroke-width="3"/>
           <rect x="187" y="52" width="150" height="98" fill="#DE2910" stroke="#000000" stroke-width="4"/>
           <polygon points="214,68 219,82 234,82 222,90 226,104 214,95 202,104 206,90 194,82 209,82" fill="#FFDE00"/>
           <circle cx="248" cy="65" r="4" fill="#FFDE00"/><circle cx="258" cy="76" r="4" fill="#FFDE00"/>
           <circle cx="258" cy="91" r="4" fill="#FFDE00"/><circle cx="248" cy="102" r="4" fill="#FFDE00"/>
-          <!-- 右側小朋友：企定肅立、雙手垂直貼緊身體兩邊、面向國旗唱歌 -->
           <g transform="translate(520, 175)">
-            <!-- 雙腳併攏站直 -->
             <rect x="-24" y="110" width="20" height="65" rx="8" fill="#1E293B" stroke="#000000" stroke-width="4"/>
             <rect x="4" y="110" width="20" height="65" rx="8" fill="#1E293B" stroke="#000000" stroke-width="4"/>
-            <!-- 身體挺直 -->
             <rect x="-36" y="42" width="72" height="76" rx="18" fill="#FACC15" stroke="#000000" stroke-width="5"/>
-            <!-- 雙手垂直貼緊身體兩邊 -->
             <line x1="-44" y1="50" x2="-44" y2="115" stroke="#FDE68A" stroke-width="16" stroke-linecap="round"/>
             <line x1="-44" y1="50" x2="-44" y2="115" stroke="#000000" stroke-width="4" stroke-linecap="round"/>
             <line x1="44" y1="50" x2="44" y2="115" stroke="#FDE68A" stroke-width="16" stroke-linecap="round"/>
             <line x1="44" y1="50" x2="44" y2="115" stroke="#000000" stroke-width="4" stroke-linecap="round"/>
-            <!-- 頭部面向左邊國旗 -->
             <circle cx="0" cy="0" r="46" fill="#FDE68A" stroke="#000000" stroke-width="5"/>
             <path d="M-46 -6 Q-40 -50 0 -50 Q40 -50 46 -6 Z" fill="#1E293B" stroke="#000000" stroke-width="4"/>
-            <!-- 眼神專注望向左方國旗 -->
             <circle cx="-22" cy="0" r="6" fill="#000000"/>
             <circle cx="2" cy="0" r="6" fill="#000000"/>
-            <!-- 張口唱國歌 -->
             <ellipse cx="-10" cy="20" rx="9" ry="11" fill="#EF4444" stroke="#000000" stroke-width="4"/>
           </g>
-          <!-- 音樂符號表示正在唱國歌 -->
           <circle cx="415" cy="145" r="10" fill="#FFFF00" stroke="#000000" stroke-width="3"/>
           <path d="M423 145 L423 105 L445 98" stroke="#FFFF00" stroke-width="6" stroke-linecap="round" fill="none"/>
         </svg>
       `),
-      // 錯誤行為對比圖（僅供二選一練習對比：周圍走動傾偈唔望國旗）
+
+      // 錯誤行為對比圖（僅供二選一練習對比）
       anthem_etiquette_bad: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
         <svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg">
           <rect width="800" height="345" fill="#94A3B8"/>
           <rect y="345" width="800" height="135" fill="#64748B"/>
           <line x1="0" y1="345" x2="800" y2="345" stroke="#000000" stroke-width="6"/>
-          <!-- 左側國旗被忽略 -->
           <rect x="135" y="45" width="12" height="305" fill="#F1F5F9" stroke="#000000" stroke-width="4"/>
           <rect x="147" y="52" width="130" height="86" fill="#DE2910" stroke="#000000" stroke-width="4"/>
-          <!-- 右側小朋友背向國旗、舉手亂跑傾偈 -->
           <g transform="translate(530, 185) rotate(14)">
             <rect x="-34" y="40" width="68" height="72" rx="18" fill="#F97316" stroke="#000000" stroke-width="5"/>
             <line x1="-36" y1="50" x2="-78" y2="15" stroke="#FDE68A" stroke-width="16" stroke-linecap="round"/>
@@ -964,7 +1075,7 @@
       }
     ];
 
-    const STORAGE_KEY = 'flag_beijing_etiquette_v4';
+    const STORAGE_KEY = 'flag_beijing_etiquette_v5';
     let state = {
       settings: {
         theme: 'dark',
@@ -1419,7 +1530,7 @@
       speakCantonese(runtime.lastSpokenText);
     });
 
-    // === 教師設定面板：圖片上傳、讀白修改與題目勾選 ===
+    // === 教師設定面板 ===
     const teacherPanel = document.getElementById('teacher-panel');
     const customCardsManager = document.getElementById('custom-cards-manager');
     const quizBankToggles = document.getElementById('quiz-bank-toggles');
